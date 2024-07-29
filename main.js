@@ -52,7 +52,7 @@ class createAllWindows {
       },
     });
 
-    // promptWindow.webContents.openDevTools(true);
+    promptWindow.webContents.openDevTools(true);
     promptWindow.setMenuBarVisibility(false);
     promptWindow.loadFile(path.join(__dirname, 'frontend', 'views', 'homePrompt.html'));
   }
@@ -70,7 +70,7 @@ class createAllWindows {
 
     mainWindow.setMenuBarVisibility(false);
     mainWindow.maximize();
-    // mainWindow.webContents.openDevTools(true);
+    mainWindow.webContents.openDevTools(true);
     mainWindow.loadFile(path.join(__dirname, 'frontend', 'views', 'homePage.html'));
 
     // mainWindow.on('closed', () => {
@@ -105,7 +105,7 @@ app.whenReady().then(() => {
   createAllWindows.createLoginWindow();
 });
 
-// Capture Form-Login and Validation
+// Cheking data and Validation user
 ipcMain.on('form-login', async (event, args) => {
   try {
     sql = `SELECT *
@@ -116,9 +116,8 @@ ipcMain.on('form-login', async (event, args) => {
     if (userLog.ctr_usu !== args.user) return dialog.showErrorBox('Erro', 'Usuário inválido');
     if (!await hashCompare(args.password, userLog.ctr_senha)) return dialog.showErrorBox('Erro', 'Senha inválida');
 
-    //Case USER then inactivated, block your access
+    //If USER then inactivated, block your access
     if (userLog.ctr_ativo !== 1) return dialog.showErrorBox('Erro', 'Seu usuário está inativado. Acesso negado');
-
     user = userLog.ctr_id;
     return dialog.showMessageBox(mainWindow, {
       title: 'Login feito com sucesso',
@@ -128,15 +127,14 @@ ipcMain.on('form-login', async (event, args) => {
     console.log(e);
   }
 });
-
-// Checking User-Code-Send
-ipcMain.on('auth-required', async (event, code) => {
+// Checking Admin-Code-Send
+ipcMain.on('auth-required', async (event, args) => {
   try {
     sql = 'SELECT * FROM Admin';
     const allHashsDB = await FindAll(sql);
     for (let row of allHashsDB) {
       let hashs = row.adm_code;
-      if (await hashCompare(code, hashs)) {
+      if (await hashCompare(args, hashs)) {
         admin = row.adm_id;
         dialog.showMessageBoxSync(promptWindow, {
           title: 'Acesso Concedido',
@@ -153,7 +151,7 @@ ipcMain.on('auth-required', async (event, code) => {
     console.error('Ocorre um erro', e);
   }
 });
-// Capture Form-Register
+// Checking data the Form-Register and Validation new User
 ipcMain.on('form-register', async (event, args) => {
   try {
     sql = 'INSERT INTO Controlador (ctr_usu, ctr_nome, ctr_sbnome, ctr_senha, ctr_created_by) VALUES (?, ?, ?, ?, ?)';
@@ -190,7 +188,7 @@ ipcMain.on('block-prompt', (event) => {
 ipcMain.on('camp-error', (event) => { //
   dialog.showErrorBox('Atenção', 'Corrija os campos necessários');
 })
-//Before CLICK in Back, to back for LoginPage (RegisterPage)
+//After CLICK in the Back, to back for LoginPage (RegisterPage)
 ipcMain.on('go-back', (event) => {
   registerWindow.close();
   createAllWindows.createLoginWindow();
