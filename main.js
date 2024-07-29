@@ -12,6 +12,7 @@ registerWindow = null;
 
 let admin = null;
 let sql = null;
+let user = null;
 
 function hashCompare(userInputCode, DbHashCode) {
   return new Promise((resolve, reject) => {
@@ -104,22 +105,30 @@ app.whenReady().then(() => {
   createAllWindows.createLoginWindow();
 });
 
-// Capture Form-Login
+// Capture Form-Login and Validation
 ipcMain.on('form-login', async (event, args) => {
   try {
-    sql = `SELECT ctr_usu, ctr_senha
+    sql = `SELECT *
            FROM Controlador
            WHERE ctr_usu = (?)`;
-    const userAndPassHash = await FindOne(sql, args.user);
+    const userLog = await FindOne(sql, args.user);
+    if (!userLog) return dialog.showErrorBox('Erro', 'Usuário não existe');
+    if (userLog.ctr_usu !== args.user) return dialog.showErrorBox('Erro', 'Usuário inválido');
+    if (!await hashCompare(args.password, userLog.ctr_senha)) return dialog.showErrorBox('Erro', 'Senha inválida');
 
-    if (!userAndPassHash) {
-      dialog.showErrorBox('Erro', 'Usuário não existe');
-    }
+    //Case USER then inactivated, block your access
+    if (userLog.ctr_ativo !== 1) return dialog.showErrorBox('Erro', 'Seu usuário está inativado. Acesso negado');
 
-  } catch(e) {
+    user = userLog.ctr_id;
+    return dialog.showMessageBox(mainWindow, {
+      title: 'Login feito com sucesso',
+      message: `Sua sessão será iniciada`
+    });
+  } catch (e) {
     console.log(e);
   }
 });
+
 // Checking User-Code-Send
 ipcMain.on('auth-required', async (event, code) => {
   try {
@@ -150,8 +159,9 @@ ipcMain.on('form-register', async (event, args) => {
     sql = 'INSERT INTO Controlador (ctr_usu, ctr_nome, ctr_sbnome, ctr_senha, ctr_created_by) VALUES (?, ?, ?, ?, ?)';
     const hashPassword = await createdHash(args.password, 10);
     const row = await Store(sql, [args.user, args.name, args.lastname, hashPassword, admin]);
+    if (args == '') return dialog.showErrorBox('Erro', 'Campos digitados incorretamente');
     if (!row) return dialog.showErrorBox('Não foi possível cadastrar', 'Usuário já existe');
-    
+
     dialog.showMessageBoxSync(registerWindow, {
       title: 'Sucesso',
       message: 'Usuário cadastrado com êxito!',
