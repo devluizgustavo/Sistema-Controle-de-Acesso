@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Sans:ital,wght@0,100..800;1,100..800&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "Ubuntu Sans", sans-serif;
+}
+
+.div-text {
+    margin: 20px;
+}
+
+
+.column {
+    background-color: rgb(53, 53, 53);
+    text-align: center;
+    border-radius: 2em;
+    width: 500px;
+    box-shadow: 0px 1px 5px #1b1a1a;
+    color: white;
+    margin: 0 auto;
+}
+
+img {
+    height: 150px;
+    width: 150px;
+    margin: 30px;
+    opacity: 50%;
+    filter: grayscale(1)
+}
+
+.container {
+    margin: 10% auto;
+    width: 730px;
+    height: 380px;
+    display: flex;
+    justify-content: center;
+    background: rgb(255, 255, 255);
+    box-shadow: 0px 1px 5px #1b1a1a;
+    border-radius: 2em;
+}
+
+.form-group {
+    margin: 100px 25px 0px 85px;
+}
+
+.form-input {
+    text-align: center;
+    margin: 15px 0px;
+    font-size: 1em;
+    width: 230px;
+    padding: 8px;
+    border-radius: 10px;
+    outline: none;
+    border: solid 2px #555252;
+}
+
+.usu {
+    margin-top: 75px;
+}
+
+.form-input:focus {
+    border-color: rgb(143, 136, 136);
+    transition: ease-in-out 500ms;
+}
+
+.label {
+    text-align: center;
+    position: fixed;
+    background-color: white;
+    height: 25px;
+    font-size: 15px;
+    width: 65px;
+    height: 20px;
+    margin: 5px 10px;
+}
+
+.btnAccess {
+    padding: 1em;
+    border-radius: 10px;
+    border: solid 1px;
+    color: white;
+    background: rgb(53, 53, 53);
+    font-weight: 600;
+    cursor: pointer;
+    width: 250px;
+    position: absolute;
+    margin: -65px -85px;
+}
+
+.btnAccess:hover {
+    background: rgb(71, 67, 67);
+    transition: ease-in-out 500ms;
+}
+
+.error-message {
+    color: rgb(189, 72, 72);
+    font-size: 1.2em;
+    font-weight: 400;
+    justify-content: center;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.BtnRegister {
+  color: rgb(190, 190, 190);
+  text-decoration: none;
+  font-weight: 700;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.BtnRegister:hover {
+  color: white;
+  transition: ease-in-out 850ms;
+}
+
+.sblabel {
+  width: 100px;
+}

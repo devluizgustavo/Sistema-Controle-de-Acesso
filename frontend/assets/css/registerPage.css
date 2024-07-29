@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Sans:ital,wght@0,100..800;1,100..800&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "Ubuntu Sans", sans-serif;
+}
+
+.div-text {
+    margin: 20px;
+}
+
+
+.column {
+    background-color: rgb(53, 53, 53);
+    text-align: center;
+    border-radius: 2em;
+    width: 75em;
+    box-shadow: 0px 1px 5px #1b1a1a;
+    color: white;
+    margin: 0 auto;
+}
+
+img {
+    height: 150px;
+    width: 150px;
+    margin: 30px;
+    opacity: 50%;
+    filter: sepia(50);
+}
+
+.container {
+    margin: 10% auto;
+    width: 60em;
+    height: 380px;
+    display: flex;
+    justify-content: center;
+    background: rgb(255, 255, 255);
+    box-shadow: 0px 1px 5px #1b1a1a;
+    border-radius: 2em;
+}
+
+.form-group_1 {
+    margin: 75px 0px 0px 50px;
+    display: inline-flex;
+}
+
+.form-group_2 {
+  margin: 0px 0px 10px 50px;
+  display: inline-flex;
+}
+
+
+.form-input {
+    text-align: center;
+    margin: 25px 0px;
+    font-size: 1em;
+    height: 25px;
+    width: 180px;
+    padding: 8px;
+    border-radius: 10px;
+    outline: none;
+    border: solid 2px #555252;
+}
+
+.usu {
+    margin-top: 75px;
+}
+
+.form-input:focus {
+    border-color: rgb(143, 136, 136);
+    transition: ease-in-out 500ms;
+}
+
+.label {
+    text-align: center;
+    position: fixed;
+    background-color: white;
+    height: 25px;
+    font-size: 15px;
+    width: 65px;
+    height: 20px;
+    margin: 15px 5px;
+}
+
+.btnRegister {
+    padding: 1em;
+    width: 230px;
+    border-radius: 10px;
+    border: solid 1px;
+    color: white;
+    background: rgb(53, 53, 53);
+    font-weight: 600;
+    margin: 15px 160px;
+    cursor: pointer;
+}
+
+.btnRegister:hover {
+    background: rgb(71, 67, 67);
+    transition: ease-in-out 500ms;
+}
+
+.error-message {
+    color: rgb(189, 72, 72);
+    font-size: 1.2em;
+    font-weight: 400;
+    justify-content: center;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+
+.back {
+  color: rgb(175, 175, 175);
+  text-decoration: none;
+  font-weight: 700;
+  border: none;
+  background: transparent;
+  cursor: pointer;  
+}
+
+.sblabel {
+  width: 100px;
+}

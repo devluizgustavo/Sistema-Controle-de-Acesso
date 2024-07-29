@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../assets/css/homePrompt.css">
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="div-text">
+      <h1>Você precisa de Autorização</h1>
+      <p>Para prosseguir, digite a chave de acesso abaixo</p>
+    </div>
+
+    <form id="formPrompt">
+      <div class="form-group">
+        <input type="password" id="codeInp" name="password" class="inp" placeholder="Chave de acesso">
+      </div>
+
+      <div class="form-group">
+        <button id="codeBtn" name="code" class="btn codeBtn">Prosseguir</button>
+      </div>
+    </form>
+
+    <p id="errorText"></p>
+  </div>
+</body>
+
+<script src="../../renderer.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+</html>

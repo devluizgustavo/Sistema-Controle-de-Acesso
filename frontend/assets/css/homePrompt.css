@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Sans:ital,wght@0,100..800;1,100..800&display=swap');
+
+* {
+  margin: 5;
+  padding: 5;
+  text-align: center;
+  font-family: "Ubuntu Sans", sans-serif;
+}
+
+
+
+#codeInp {
+  outline: none;
+  border: solid 2px rgb(160, 160, 160);
+  border-radius: 18px;
+  padding: 8px;
+  width: 185px;
+  height: 25px;
+  font-size: 18px;
+}
+
+#codeInp:focus {
+  border-color: rgb(77, 77, 77);
+  transition: ease-in-out 680ms;  
+}
+
+.form-group {
+  margin: 20px 25px;
+}
+
+.btn {
+  color: white;
+  background: rgb(88, 88, 88);
+  border-radius: 5px;
+  border: none;
+  width: 185px;
+  height: 45px;
+  padding: 8px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.btn:hover {
+  background: rgb(41, 41, 41);
+  transition: ease-in-out 680ms;  
+}
+
+#error-text {
+  color: rgb(207, 86, 86);
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 35px;
+}
+
+p {
+  font-size: 18px;
+}

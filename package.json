@@ -1,0 +1,27 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "dotenv": "^16.4.5"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "electron": "^22.3.27",
+    "electron-prompt": "^1.7.0",
+    "electron-router": "^0.5.1",
+    "jquery": "^3.7.1",
+    "mysql2": "^3.10.2",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7",
+    "typescript": "^5.5.4",
+    "validator": "^13.12.0"
+  }
+}

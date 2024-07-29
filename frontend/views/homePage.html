@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AppControle</title>
+  <link rel="stylesheet" href="../assets/css/homePage.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="column">
+      <div class="div-text">
+        <h1>Sintetel</h1>
+        <p>Insira seu <b>usuário</b> e <b>senha</b> ao lado</p>
+
+        <div class="img">
+          <img src="../assets/img/logo.png" alt="logo-sintetel">
+        </div>
+
+        <button class="BtnRegister" id="btnCad">Cadastrar Usuário</button>
+      </div>
+    </div>
+
+    <form id="formLogin">
+      <div class="form-group">
+        <div class="label">
+          Usuario
+        </div>
+        <input type="text" name="user" id="user" class="form-input" placeholder="Seu usuário">
+        <div class="label">
+          Senha
+        </div>
+        <input type="password" id="password" name="password" class="form-input" placeholder="Sua senha">
+        <div class="form-group">
+          <button type="submit" class="btnAccess" id="btnLogin">Acessar o Sistema</button>
+        </div>
+      </div>
+  </div>
+  </form>
+  <div>
+    <div class="error-message"></div>
+  </div>
+</body>
+
+<script src="../../renderer.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+</html>
