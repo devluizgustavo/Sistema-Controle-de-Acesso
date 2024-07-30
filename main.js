@@ -1,10 +1,7 @@
 const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const path = require('path');
 const bcrypt = require('bcryptjs');
-const sqlite3 = require('sqlite3');
-const db_connection = require('./src/database/connection.js');
 const { FindAll, Store, FindOne } = require('./src/util/dbRepository.js');
-const { createHash } = require('crypto');
 
 mainWindow = null;
 promptWindow = null;
@@ -42,6 +39,7 @@ class createAllWindows {
       height: 350,
       title: 'Alerta',
       modal: true,
+      icon: path.join(__dirname, 'frontend', 'assets', 'img', 'warning', '16x16.png'),
       show: false,
       center: true,
       resizable: true,
@@ -61,6 +59,7 @@ class createAllWindows {
     mainWindow = new BrowserWindow({
       height: 1920,
       width: 1080,
+      icon: path.join(__dirname, 'frontend', 'assets', 'img', 'icons', '512x512.png'),
       webPreferences: {
         nodeIntegration: true,
         contextIsolation: false,
@@ -82,6 +81,7 @@ class createAllWindows {
     registerWindow = new BrowserWindow({
       width: 1920,
       height: 1080,
+      icon: path.join(__dirname, 'frontend', 'assets', 'img', 'icons', '512x512.png'),
       title: 'Alerta',
       modal: true,
       show: false,
