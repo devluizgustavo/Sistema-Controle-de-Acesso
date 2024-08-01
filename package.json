@@ -4,23 +4,30 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "dev": "webpack -w"
   },
   "icon": "frontend/assets/img/icons/512x512.png",
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "dotenv": "^16.4.5"
+    "@babel/core": "^7.21.4",
+    "@babel/preset-env": "^7.21.4",
+    "babel-loader": "^8.2.5",
+    "dotenv": "^16.4.5",
+    "webpack": "^5.93.0",
+    "webpack-cli": "^5.1.4",
+    "electron": "^22.3.27",
+    "electron-prompt": "^1.7.0",
+    "electron-router": "^0.5.1"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "electron": "^22.3.27",
-    "electron-prompt": "^1.7.0",
-    "electron-router": "^0.5.1",
+    "core-js": "^2.6.12",
     "jquery": "^3.7.1",
     "mysql2": "^3.10.2",
-    "sqlite": "^5.1.1",
+    "regenerator-runtime": "^0.14.1",
     "sqlite3": "^5.1.7",
     "typescript": "^5.5.4",
     "validator": "^13.12.0"
