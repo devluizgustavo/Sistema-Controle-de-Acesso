@@ -5,9 +5,10 @@ const { FindAll, Store, FindOne } = require('./src/util/dbRepository.js');
 const { hashCompare, createdHash } = require('./src/bcrypt/bcryptFunc.js');
 const { join } = require('path');
 
-mainWindow = null;
-promptWindow = null;
-registerWindow = null;
+let mainWindow = null;
+let promptWindow = null;
+let registerWindow = null;
+let controllerWindow = null;
 
 let admin = null;
 let sql = null;
@@ -20,7 +21,7 @@ class createAllWindows {
       height: 350,
       title: 'Alerta',
       modal: true,
-      icon: path.join(__dirname, 'assets', 'img', 'warning', '16x16.png'),
+      icon: path.join(__dirname, 'assets', 'img', 'other', 'warning.png'),
       show: false,
       center: true,
       resizable: true,
@@ -32,7 +33,6 @@ class createAllWindows {
       },
     });
 
-    promptWindow.webContents.openDevTools(true);
     promptWindow.setMenuBarVisibility(false);
     promptWindow.loadFile(path.join(__dirname, 'renderer', 'pages', 'authPage.html'));
   }
@@ -41,7 +41,7 @@ class createAllWindows {
     mainWindow = new BrowserWindow({
       height: 1920,
       width: 1080,
-      icon: path.join(__dirname, 'assets', 'img', 'icons', '512x512.png'),
+      icon: path.join(__dirname, 'assets', 'img', 'icons', 'iconApp', '512x512.png'),
       webPreferences: {
         preload: path.join(__dirname, 'preload.js'),
         nodeIntegration: true,
@@ -52,7 +52,6 @@ class createAllWindows {
 
     mainWindow.setMenuBarVisibility(false);
     mainWindow.maximize();
-    mainWindow.webContents.openDevTools(true);
     mainWindow.loadFile(path.join(__dirname, 'renderer', 'pages', 'loginPage.html'));
 
     // mainWindow.on('closed', () => {
@@ -64,7 +63,7 @@ class createAllWindows {
     registerWindow = new BrowserWindow({
       width: 1920,
       height: 1080,
-      icon: path.join(__dirname, 'assets', 'img', 'icons', '512x512.png'),
+      icon: path.join(__dirname, 'assets', 'img', 'icons', 'iconApp', '512x512.png'),
       title: 'Alerta',
       modal: true,
       show: false,
@@ -82,6 +81,30 @@ class createAllWindows {
     registerWindow.setMenuBarVisibility(false);
     registerWindow.webContents.openDevTools(true);
     registerWindow.loadFile(path.join(__dirname, 'renderer', 'pages', 'registerPage.html'));
+  }
+
+  static createControllerWindow() {
+    controllerWindow = new BrowserWindow({
+      width: 1920,
+      height: 1080,
+      icon: path.join(__dirname, 'assets', 'img', 'icons', 'iconApp', '512x512.png'),
+      title: 'App Controle',
+      modal: true,
+      show: false,
+      center: true,
+      resizable: true,
+      webPreferences: {
+        preload: path.join(__dirname, 'preload.js'),
+        nodeIntegration: true,
+        contextIsolation: true,
+        enableRemoteModule: true,
+      },
+    });
+
+    controllerWindow.maximize();
+    controllerWindow.webContents.openDevTools(true);
+    controllerWindow.setMenuBarVisibility(false);
+    controllerWindow.loadFile(path.join(__dirname, 'renderer', 'pages', 'controllerPage.html'));
   }
 }
 
@@ -102,8 +125,7 @@ ipcMain.handle('form-login', async (event, args) => {
 
     //If USER then inactivated, block your access
     if (userLog.ctr_ativo !== 1) return dialog.showErrorBox('Erro', 'Seu usuário está inativado. Acesso negado');
-    user = userLog.ctr_id;
-
+    user = userLog;
     return true;
   } catch (e) {
     console.log(e);
@@ -129,9 +151,9 @@ ipcMain.handle('auth-required', async (event, args) => {
 // Checking data the Form-Register and Validation new User
 ipcMain.handle('form-register', async (event, args) => {
   try {
-    sql = 'INSERT INTO Controlador (ctr_usu, ctr_nome, ctr_sbnome, ctr_senha, ctr_created_by) VALUES (?, ?, ?, ?, ?)';
+    sql = 'INSERT INTO Controlador (ctr_usu, ctr_nome, ctr_sbnome, ctr_senha, ctr_created_by, ctr_sexo) VALUES (?, ?, ?, ?, ?, ?)';
     const hashPassword = await createdHash(args.password, 10);
-    const row = await Store(sql, [args.user, args.name, args.lastname, hashPassword, admin.adm_id]);
+    const row = await Store(sql, [args.user, args.name, args.lastname, hashPassword, admin.adm_id, args.sexo]);
     if (args == '') return dialog.showErrorBox('Erro', 'Campos digitados incorretamente');
     if (!row) return dialog.showErrorBox('Não foi possível cadastrar', 'Usuário já existe');
     return true;
@@ -139,6 +161,15 @@ ipcMain.handle('form-register', async (event, args) => {
     console.log(e);
   }
 });
+// Get User From Renderer
+ipcMain.handle('get-user', async (event) => {
+  try {
+    const res = await user;
+    return res;
+  } catch (e) {
+    console.log(e);
+  }
+})
 
 //Event-in-the-Pages
 //After clicking the link, to go the registration page (LoginPage)
@@ -173,6 +204,8 @@ ipcMain.on('success-login', () => {
     title: 'Login feito com sucesso',
     message: `Sua sessão será iniciada`
   });
+  mainWindow.close();
+  createAllWindows.createControllerWindow()
 })
 //if the access code is wrong
 ipcMain.on('block-prompt', () => {

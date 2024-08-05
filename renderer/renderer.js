@@ -1,8 +1,11 @@
 import handleLoginSubmit from './modules/Login/handleLoginSubmit.js';
 import handleAuthSubmit from './modules/AuthPrompt/handleAuthSubmit.js';
-import handleRegisterSubmit from './modules/Register/handleRegisterSubmit'
+import handleRegisterSubmit from './modules/Register/handleRegisterSubmit.js'
+import showNameUser from './modules/ControllerWindow/showNameUser.js';
 
-//Prever TODOS os eventos do documento
+
+
+//Executar ações quando o DOM carregar
 window.addEventListener('DOMContentLoaded', () => {
   //Capturar os cliques em elementos da página
   document.addEventListener('click', e => {
@@ -40,4 +43,19 @@ window.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  showNameUser();
+
+  // Seleciona uma linha da tabela
+  document.querySelectorAll('.styled-table tbody tr').forEach(row => {
+    row.addEventListener('click', () => {
+      // Remove a classe 'selected' de todas as linhas
+      document.querySelectorAll('.styled-table tbody tr').forEach(r => r.classList.remove('selected'));
+
+      // Adiciona a classe 'selected' à linha clicada
+      row.classList.add('selected');
+    });
+  });
+
+
 });

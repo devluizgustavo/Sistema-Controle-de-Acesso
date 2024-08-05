@@ -5,13 +5,15 @@ export default async function handleRegisterSubmit(event) {
   try {
     event.preventDefault();
     const nameAndLastNameRegex = /[^a-zA-Z\s]/g;
-    const userAndPasswordRegex = /^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[^a-zA-Z0-9]).{8,}$/
+    const userRegex = /^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[^a-zA-Z0-9]).{8,}$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/;
     const formRegister = new FormData(event.target);
     const dataUser = {
       name: formRegister.get('name').trim(),
       lastname: formRegister.get('lastname').trim(),
       user: formRegister.get('user').trim(),
-      password: formRegister.get('password').trim()
+      password: formRegister.get('password').trim(),
+      sexo: formRegister.get('gender')
     };
     //Zerar erros
     errors = [];
@@ -22,10 +24,11 @@ export default async function handleRegisterSubmit(event) {
     }
     errors.splice(1, 3); //Extrair apenas uma mensagem de erro
 
+    if (dataUser.sexo === null) errors.push('Por favor, identifique o seu gênero<br>');
     if ((nameAndLastNameRegex.test(dataUser.name)) || (nameAndLastNameRegex.test(dataUser.lastname)))
       errors.push('Campo nome ou sobrenome não pode conter números/caracteres especiais<br>');
-    if (!userAndPasswordRegex.test(dataUser.user) || dataUser.user.length < 5) errors.push('Usuário inválido<br>');
-    if (!userAndPasswordRegex.test(dataUser.password) || dataUser.password.length < 7) errors.push('Senha inválida<br>');
+    if (!userRegex.test(dataUser.user) || dataUser.user.length < 5) errors.push('Usuário inválido<br>');
+    if (!passwordRegex.test(dataUser.password) || dataUser.password.length < 7) errors.push('Senha inválida<br>');
     if (errors.length > 0) return errors.forEach(val => showError('error', val));
 
     const res = await window.electron.getRegister(dataUser);

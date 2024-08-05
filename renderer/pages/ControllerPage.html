@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>App Controle</title>
+  <link rel="stylesheet" href="../styles/controllerPage.css">
+</head>
+
+<body>
+  <!DOCTYPE html>
+  <html lang="pt-BR">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barra Lateral</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+
+  <body>
+    <div id="main">
+      <a class="openbtn" onclick="openNav()"><img src="../../assets/img/icons/pageController/menu-icon.png"
+          alt=""></span></a>
+    </div>
+
+    <div class="sidebar" id="sidebar">
+      <a href="#" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="#"><img class="logo-menu" src="../../assets/img/icons/pageLogin/user.png" alt=""></a>
+      <a href="#">Perfil</a>
+      <a href="#">Dashboard</a>
+      <a href="#">Configurações</a>
+      <a href="#">Sair</a>
+    </div>
+
+    <div class="container">
+      <div class="div-text">
+        <h1 class="welcome"><span id="name-user"></span></h1>
+      </div>
+
+
+      <form id="form-search">
+        <div class="form-group">
+          <div class="label">
+            Procurar
+          </div>
+          <input type="text" name="search" id="user" class="form-input" placeholder="Digite o RG/CPF ou Nome Completo">
+          <button type="submit" class="btnSearch" id="Search">Buscar</button>
+        </div>
+      </form>
+
+      <div class="container-rel">
+        <h1>Relatório do Dia</h1>
+
+        <div class="text-div">
+          <p class="text-group">Ultima liberação</p>
+          <div class="container-people">
+            <p class="p-group" id="full_name"><b>Nome:</b> <span class="nm_ult_cad">Rayssa Soares Almeira Campos</span>
+            </p>
+            <div class="div-dados">
+              <p class="p-group" id="id"><b>Rg:</b> <span class="rg_ult_cad">57.090.985-5</span></p>
+              <p class="p-group" id="id"><b>ID:</b> <span class="id_ult_cad">0041</span></p>
+            </div>
+
+          </div>
+          <p class="text-group">Total de cadastros realizados <span class="n-group">10</span></p>
+          <p class="text-group b">Total de liberações realizadas <span class="n-group">10</span></p>
+        </div>
+      </div>
+
+      <div class="div-btn-cad">
+        <img class="img-register" src="../../assets/img/icons/pageController/new-register-btn.png">
+        <button class="btnCadastro">Fazer Cadastro</button>
+      </div>
+
+      <div class="table-container">
+        <table class="styled-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nome Completo</th>
+              <th>RG/CPF</th>
+              <th>Último Acesso</th>
+              <th>Setor</th>
+              <th>Assunto</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>João da Silva</td>
+              <td>123.456.789-00</td>
+              <td>01/08/2024 10h00</td>
+              <td>Financeiro</td>
+              <td>Relatório Mensal</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="div-btns-footer">
+        <img class="img-edit" src="../../assets/img/icons/pageController/edit-btn.png">
+        <button class="btn-group white">Editar Dados</button>
+        <img class="img-cadeado" src="../../assets/img/icons/pageController/registers-btn.png">
+        <button class="btn-group white">Acessar Histórico</button>
+        <img class="img-cadeado" src="../../assets/img/icons/pageController/realese-access-btn.png">
+        <button class="btn-group yellow">Liberar Acesso</button>
+      </div>
+
+
+      <script>
+        function openNav() {
+          document.getElementById("sidebar").style.width = "250px";
+          document.getElementById("main").style.marginLeft = "250px";
+        }
+
+        function closeNav() {
+          document.getElementById("sidebar").style.width = "0";
+          document.getElementById("main").style.marginLeft = "0";
+        }
+      </script>
+  </body>
+
+  </html>
+
+</body>
+
+<script src="../../public/assets/js/bundle.js"></script>
+
+</html>
