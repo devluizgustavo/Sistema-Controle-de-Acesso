@@ -372,6 +372,7 @@ window.addEventListener('DOMContentLoaded', function () {
     var el = e.target;
     if (el.classList.contains('BtnRegister')) return window.electron.send('open-prompt'); //Enviar mensagem para abrir o prompt
     if (el.classList.contains('back')) return window.electron.send('go-back'); //Enviar evento para voltar a página principal
+    if (el.classList.contains('logoff')) return window.electron.send('close-session'); //Encerrar sessão
   });
 
   // Capturar o evento submit de todos os formulários

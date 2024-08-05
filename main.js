@@ -172,14 +172,14 @@ ipcMain.handle('get-user', async (event) => {
 })
 
 //Event-in-the-Pages
-//After clicking the link, to go the registration page (LoginPage)
+//Open prompt for code-access
 ipcMain.on('open-prompt', (event) => {
   createAllWindows.createAuthPromptWindow()
   promptWindow.once('ready-to-show', () => {
     promptWindow.show();
   });
 });
-//If the access code is correct, redirect
+//If the access code is correct
 ipcMain.on('success-auth', () => {
   dialog.showMessageBoxSync(promptWindow, {
     title: 'Acesso Concedido',
@@ -189,7 +189,7 @@ ipcMain.on('success-auth', () => {
   mainWindow.close();
   createAllWindows.createRegisterWindow();
 });
-//If the register is correct, redirect
+//If the register is correct
 ipcMain.on('success-register', () => {
   dialog.showMessageBoxSync(registerWindow, {
     title: 'Sucesso',
@@ -198,7 +198,7 @@ ipcMain.on('success-register', () => {
   registerWindow.close();
   createAllWindows.createLoginWindow();
 })
-//If the login is correct, redirect
+//If the login is correct
 ipcMain.on('success-login', () => {
   dialog.showMessageBoxSync(mainWindow, {
     title: 'Login feito com sucesso',
@@ -207,13 +207,39 @@ ipcMain.on('success-login', () => {
   mainWindow.close();
   createAllWindows.createControllerWindow()
 })
-//if the access code is wrong
+//App Quit if access code is wrong
 ipcMain.on('block-prompt', () => {
   dialog.showErrorBox('Acesso Negado', 'Sua sessão será encerrada');
   app.quit();
 });
-//After CLICK in the Back, to back for LoginPage (RegisterPage)
-ipcMain.on('go-back', (event) => {
+//Back for LoginPage (RegisterPage)
+ipcMain.on('go-back', () => {
   registerWindow.close();
   createAllWindows.createLoginWindow();
 });
+//Close the session
+ipcMain.on('close-session', async (event) => {
+  try {
+    event.preventDefault();
+    await dialog.showMessageBox(controllerWindow, {
+      type: 'warning',
+      buttons: ["Cancelar", "Encerrar"],
+      defaultId: 1,
+      title: "Confirmar",
+      message: "Você realmente deseja encerrar a sessão?",
+    }).then((val) => {
+      if (val.response === 1) {
+        user = null;
+        controllerWindow.close();
+        createAllWindows.createLoginWindow();
+        dialog.showMessageBox(mainWindow, {
+          title: 'Atenção',
+          message: 'Sua sessão foi encerrada'
+        })
+      }
+    });
+  } catch (e) {
+    console.log(e);
+  }
+})
+
