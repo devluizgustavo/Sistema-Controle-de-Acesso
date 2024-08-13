@@ -30,6 +30,6 @@ export default async function handlePromptSubmit(event) {
       }
     }
   } catch (e) {
-    console.log(e);
+    console.error('Ocorreu um erro na tentitiva do acesso', e);
   }
 }

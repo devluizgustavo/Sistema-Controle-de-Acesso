@@ -24,7 +24,7 @@ export default async function handleLoginSubmit(event) {
 
     if (res) window.electron.send('success-login');
   } catch (e) {
-    console.log('Ocorreu um erro ao tentar efetuar o login', e);
+    console.error('Ocorreu um erro ao tentar efetuar o login', e);
   }
 }
 

@@ -35,6 +35,6 @@ export default async function handleRegisterSubmit(event) {
 
     if (res) return window.electron.send('success-register');
   } catch (e) {
-    console.log('Ocorreu um erro ao tentar cadastrar', e);
+    console.error('Ocorreu um erro ao tentar cadastrar', e);
   }
 }

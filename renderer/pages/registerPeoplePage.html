@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastrar</title>
+  <link rel="stylesheet" href="../styles/registerPeoplePage.css">
+</head>
+
+<body>
+  <div class="column">
+    <!-- Inicio da Coluna -->
+    <header class="text">
+      <h1>Cadastre uma novo acesso</h1>
+      <p>Preencha os campos <b>necessários</b> ao lado</p>
+    </header>
+
+    <div>
+      <img src="../../assets/img/icons/pageRegisterPeople/icon-cad-peoples.png" alt="icon-register" class="img-cad">
+    </div>
+
+    <div>
+      <img src="../../assets/img/icons/pageRegisterPeople/seta-esquerda.png" alt="" class="img-back">
+    </div>
+  </div> <!-- Fim da Coluna -->
+
+
+  <div class="container">
+    <!-- Inicio Container -->
+    <form id="formCadPeople">
+      <!-- Formulario -->
+
+      <div class="form-group">
+        <div class="label">
+          Nome
+        </div>
+        <input type="text" id="nm_inp_cad" name="name" class="form-input" placeholder="Digite o nome">
+      </div>
+
+      <div class="form-group">
+        <div class="label sblabel">
+          Sobrenome
+        </div>
+        <input type="text" id="sb_inp_cad" name="lastname" class="form-input" placeholder="Digite o sobrenome">
+      </div>
+
+      <div class="form-group">
+        <label for="id_type" class="label select">Tipo de Identificação</label>
+        <select id="id_type_identific" name="id_type" class="form-input">
+          <option value="">Escolha uma opção</option>
+          <option value="cpf">CPF</option>
+          <option value="rg">RG</option>
+        </select>
+      </div>
+
+      <div id="cpf_field" class="form-group">
+        <label for="cpf_input" class="label">CPF</label>
+        <input type="text" id="cpf_input" name="cpf" class="form-input" placeholder="Digite o CPF" maxlength="14">
+      </div>
+
+      <div id="rg_field" class="form-group" style="display: none;">
+        <label for="rg_input" class="label">RG</label>
+        <input type="text" id="rg_input" name="rg" class="form-input rg" placeholder="Digite o RG" maxlength="13">
+      </div>
+
+      <div id="org_field" class="form-group" style="display: none;">
+        <div class="labelesp">Org Exp</div>
+        <input type="text" id="org_inp_cad" name="org" class="form-input ssp" placeholder="Ex: SSP">
+      </div>
+
+      <div class="form-group">
+        <div class="labelesp">
+          Data de Nascimento
+        </div>
+        <input type="date" id="pass_inp_cad" name="dtnasc" class="form-input" placeholder="Sua senha">
+      </div>
+
+      <div class="form-group">
+        <label for="id_type" class="label select">Sexo</label>
+        <select id="id_type_sexo" name="id_type" class="form-input">
+          <option value="">Escolha uma opção</option>
+          <option value="M">Masculino</option>
+          <option value="F">Feminino</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <div class="labelesp">
+          Telefone
+        </div>
+        <input type="text" id="tel_inp_cad" name="tel" class="form-input" placeholder="(11) 9999-9999">
+      </div>
+
+      <div class="form-group">
+        <div class="labelesp">
+          E-mail
+        </div>
+        <input type="text" id="email_inp_cad" name="email" class="form-input" placeholder="email@email.com">
+      </div>
+      <!-- 
+      <div class="form-group">
+        <h1>Vídeo da Câmera</h1>
+        <video id="video" width="640" height="480" autoplay></video>
+      </div> -->
+
+      <div class="form-group">
+        <button type="submit" class="btnRegister">Criar Cadastro</button>
+      </div>
+    </form>
+
+    <div id="error-message"></div>
+  </div> <!-- Fim do Container -->
+
+</body>
+
+<script src="../../public/assets/js/bundle.js"></script>
+
+</html>
