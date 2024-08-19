@@ -8,8 +8,8 @@ export default async function handlePromptSubmit(event) {
     const formPrompt = new FormData(event.target);
     const dataPrompt = { code: formPrompt.get('code').trim() };
 
-    if (dataPrompt.code == '') {
-      errors.push('Campo não pode estar vazio');
+    if (dataPrompt.code.length !== 10) {
+      errors.push('Codigo inválido');
       showError('errorText', `Tentativa: ${attemptCount + 1}`);
     }
 

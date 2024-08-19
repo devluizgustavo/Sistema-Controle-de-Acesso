@@ -35,8 +35,8 @@ function _handlePromptSubmit() {
           dataPrompt = {
             code: formPrompt.get('code').trim()
           };
-          if (dataPrompt.code == '') {
-            errors.push('Campo não pode estar vazio');
+          if (dataPrompt.code.length !== 10) {
+            errors.push('Codigo inválido');
             (0,_utils_showError_js__WEBPACK_IMPORTED_MODULE_0__["default"])('errorText', "Tentativa: ".concat(attemptCount + 1));
           }
           document.getElementById('errorText').innerHTML = '';
@@ -108,56 +108,67 @@ var RegPeopleForm = /*#__PURE__*/function () {
   }
   return _createClass(RegPeopleForm, [{
     key: "handleSubmit",
+    value: function handleSubmit(event) {
+      event.preventDefault();
+      this.getDataAndValidate();
+    }
+  }, {
+    key: "getDataAndValidate",
     value: function () {
-      var _handleSubmit = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(event) {
+      var _getDataAndValidate = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var _form$get, _form$get2, _form$get3, _form$get4, _form$get5, _form$get6, _form$get7, _form$get8, form, data, checked, isTrue;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              try {
-                event.preventDefault();
-                this.getData();
-              } catch (e) {
-                console.error('Ocorreu um erro ao tentar efetuar o cadastro', e);
+              _context.prev = 0;
+              form = new FormData(this.form);
+              data = {
+                name: ((_form$get = form.get('name')) === null || _form$get === void 0 ? void 0 : _form$get.trim()) || '',
+                lastname: ((_form$get2 = form.get('lastname')) === null || _form$get2 === void 0 ? void 0 : _form$get2.trim()) || '',
+                cpf: ((_form$get3 = form.get('cpf')) === null || _form$get3 === void 0 ? void 0 : _form$get3.trim()) || '',
+                rg: ((_form$get4 = form.get('rg')) === null || _form$get4 === void 0 ? void 0 : _form$get4.trim()) || '',
+                org: ((_form$get5 = form.get('org')) === null || _form$get5 === void 0 ? void 0 : _form$get5.trim()) || '',
+                dtnasc: ((_form$get6 = form.get('dtnasc')) === null || _form$get6 === void 0 ? void 0 : _form$get6.trim()) || '',
+                sexo: document.getElementById('id_type_sexo').value,
+                tel: ((_form$get7 = form.get('tel')) === null || _form$get7 === void 0 ? void 0 : _form$get7.trim()) || '',
+                email: ((_form$get8 = form.get('email')) === null || _form$get8 === void 0 ? void 0 : _form$get8.trim()) || ''
+              };
+              checked = this.checkCamps(data);
+              if (checked) {
+                _context.next = 6;
+                break;
               }
-            case 1:
+              return _context.abrupt("return", this.errors.forEach(function (val) {
+                (0,_utils_showError_js__WEBPACK_IMPORTED_MODULE_1__["default"])('error-message', val);
+              }));
+            case 6:
+              ;
+              _context.next = 9;
+              return window.electron.getCadPeople(data);
+            case 9:
+              isTrue = _context.sent;
+              if (isTrue) this.cleanInputsBefVal();
+              _context.next = 16;
+              break;
+            case 13:
+              _context.prev = 13;
+              _context.t0 = _context["catch"](0);
+              console.error('Erro ao tentar a comunicação com o sistema', _context.t0);
+            case 16:
             case "end":
               return _context.stop();
           }
-        }, _callee, this);
+        }, _callee, this, [[0, 13]]);
       }));
-      function handleSubmit(_x) {
-        return _handleSubmit.apply(this, arguments);
+      function getDataAndValidate() {
+        return _getDataAndValidate.apply(this, arguments);
       }
-      return handleSubmit;
+      return getDataAndValidate;
     }()
-  }, {
-    key: "getData",
-    value: function getData() {
-      var _form$get, _form$get2, _form$get3, _form$get4, _form$get5, _form$get6, _form$get7, _form$get8;
-      var form = new FormData(this.form);
-      var data = {
-        name: ((_form$get = form.get('name')) === null || _form$get === void 0 ? void 0 : _form$get.trim()) || '',
-        lastname: ((_form$get2 = form.get('lastname')) === null || _form$get2 === void 0 ? void 0 : _form$get2.trim()) || '',
-        cpf: ((_form$get3 = form.get('cpf')) === null || _form$get3 === void 0 ? void 0 : _form$get3.trim()) || '',
-        rg: ((_form$get4 = form.get('rg')) === null || _form$get4 === void 0 ? void 0 : _form$get4.trim()) || '',
-        org: ((_form$get5 = form.get('org')) === null || _form$get5 === void 0 ? void 0 : _form$get5.trim()) || '',
-        dtnasc: ((_form$get6 = form.get('dtnasc')) === null || _form$get6 === void 0 ? void 0 : _form$get6.trim()) || '',
-        tel: ((_form$get7 = form.get('tel')) === null || _form$get7 === void 0 ? void 0 : _form$get7.trim()) || '',
-        email: ((_form$get8 = form.get('email')) === null || _form$get8 === void 0 ? void 0 : _form$get8.trim()) || ''
-      };
-      var checked = this.checkCamps(data);
-      if (!checked) {
-        this.errors.forEach(function (val) {
-          (0,_utils_showError_js__WEBPACK_IMPORTED_MODULE_1__["default"])('error-message', val);
-        });
-      }
-      ;
-    }
   }, {
     key: "checkCamps",
     value: function checkCamps(data) {
       var selectIdent = document.getElementById('id_type_identific');
-      var selectSexo = document.getElementById('id_type_sexo');
       var valid = false;
       var _iterator = _createForOfIteratorHelper(this.form.querySelectorAll('.error-text')),
         _step;
@@ -173,18 +184,29 @@ var RegPeopleForm = /*#__PURE__*/function () {
       }
       this.errors = [];
       document.getElementById("error-message").innerHTML = '';
-      if (!selectIdent.value) this.errors.push('É necessário que ao menos CPF ou RG seja selecionado<br>');
-      if (!selectSexo.value) this.errors.push('É necessário que identifique o gênero<br>');
       if (data.name === '' || data.lastname === '') this.errors.push('Campos: Nome/Sobrenome não podem estar vazios<br>');
+      if (!selectIdent.value) this.errors.push('É necessário que ao menos CPF ou RG seja selecionado<br>');
       if (!data.cpf && !data.rg && !data.org) this.errors.push('Você deve preencher pelo menos um dos campos: CPF ou RG<br>');
-      if (!data.dtnasc) this.errors.push('É necessário que a data de nascimento seja preenchida');
-      var Rg_isNotNull = data.rg && data.org && !data.cpf; // Verifica se o RG e o Orgão Expeditor estão preenchidos e  o CPF está vazio
-      var All_isNotNull = data.rg && data.org && data.cpf; // Verifica se o RG e o Orgão Expeditor estão preenchidos e  o CPF também
-      if (Rg_isNotNull || All_isNotNull) {
+      if (!data.dtnasc) this.errors.push('É necessário que a data de nascimento seja preenchida<br>');
+      if (!data.sexo) this.errors.push('É necessário que identifique o gênero<br>');
+      if (data.email !== '') {
+        var regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!regexEmail.test(data.email)) this.errors.push('Email Inválido<br>');
+      }
+      if (data.tel !== '') {
+        if (data.tel.length < 14 || data.tel.length > 15) this.errors.push('Número de contato incorreto<br>');
+      }
+      var Rg_isNotNull = data.rg && !data.cpf; // Verifica se o RG e o Orgão Expeditor estão preenchidos e  o CPF está vazio
+      var CPF_isNotNull = !data.rg && data.cpf; // Verifica se o RG e o Orgão Expeditor estão preenchidos e  o CPF está vazio
+      var All_isNotNull = data.rg && data.cpf; // Verifica se o RG e o Orgão Expeditor estão preenchidos e  o CPF também
+      if (Rg_isNotNull || CPF_isNotNull || All_isNotNull) {
         // Se qualquer uma das condições for verdadeira, define a validade como verdadeiro
         valid = true;
       }
-      if (data.cpf !== '') {
+      if (Rg_isNotNull) {
+        if (data.rg.length < 7 || data.rg.length > 13) this.errors.push('RG inválido');
+      }
+      if (CPF_isNotNull) {
         var cpf_inst = new _ValidateCPF_js__WEBPACK_IMPORTED_MODULE_0__["default"](data.cpf);
         if (cpf_inst.validate()) {
           valid = true;
@@ -193,6 +215,35 @@ var RegPeopleForm = /*#__PURE__*/function () {
         }
       }
       return valid === true && this.errors.length === 0 ? true : false;
+    }
+  }, {
+    key: "cleanInputsBefVal",
+    value: function cleanInputsBefVal() {
+      var _iterator2 = _createForOfIteratorHelper(document.querySelectorAll('input')),
+        _step2;
+      try {
+        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+          var input = _step2.value;
+          input.value = "";
+        }
+      } catch (err) {
+        _iterator2.e(err);
+      } finally {
+        _iterator2.f();
+      }
+      var _iterator3 = _createForOfIteratorHelper(document.querySelectorAll('select')),
+        _step3;
+      try {
+        for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+          var select = _step3.value;
+          select.value = "";
+        }
+      } catch (err) {
+        _iterator3.e(err);
+      } finally {
+        _iterator3.f();
+      }
+      ;
     }
   }]);
 }();
@@ -330,7 +381,7 @@ function handleLoginSubmit(_x) {
 }
 function _handleLoginSubmit() {
   _handleLoginSubmit = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(event) {
-    var userRegex, passwordRegex, formDataLogin, dataLogin, res;
+    var userRegex, passwordRegex, formDataLogin, dataLogin, login;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -358,19 +409,23 @@ function _handleLoginSubmit() {
           _context.next = 14;
           return window.electron.getLogin(dataLogin);
         case 14:
-          res = _context.sent;
-          if (res) window.electron.send('success-login');
-          _context.next = 21;
-          break;
-        case 18:
-          _context.prev = 18;
+          login = _context.sent;
+          if (login) {
+            _context.next = 17;
+            break;
+          }
+          return _context.abrupt("return");
+        case 17:
+          return _context.abrupt("return", window.electron.send('success-login'));
+        case 20:
+          _context.prev = 20;
           _context.t0 = _context["catch"](0);
           console.error('Ocorreu um erro ao tentar efetuar o login', _context.t0);
-        case 21:
+        case 23:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 18]]);
+    }, _callee, null, [[0, 20]]);
   }));
   return _handleLoginSubmit.apply(this, arguments);
 }
@@ -410,9 +465,9 @@ function _handleRegisterSubmit() {
           passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/;
           formRegister = new FormData(event.target);
           dataUser = {
+            user: formRegister.get('user').trim(),
             name: formRegister.get('name').trim(),
             lastname: formRegister.get('lastname').trim(),
-            user: formRegister.get('user').trim(),
             password: formRegister.get('password').trim(),
             sexo: formRegister.get('gender')
           }; //Zerar erros
@@ -474,7 +529,53 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ showError)
 /* harmony export */ });
 function showError(idName, MsgError) {
-  document.getElementById(idName).innerHTML += MsgError;
+  var element = document.getElementById(idName);
+  element.innerHTML += MsgError;
+}
+
+/***/ }),
+
+/***/ "./renderer/utils/showMask.js":
+/*!************************************!*\
+  !*** ./renderer/utils/showMask.js ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ showMaskCPF),
+/* harmony export */   showMaskNameAndLastName: () => (/* binding */ showMaskNameAndLastName),
+/* harmony export */   showMaskRG: () => (/* binding */ showMaskRG),
+/* harmony export */   showMaskTel: () => (/* binding */ showMaskTel)
+/* harmony export */ });
+function showMaskCPF(cpf) {
+  cpf = cpf.replace(/\D/g, ''); //Remove caracteres não numericos
+
+  return cpf.replace(/(\d{3})(\d)/, '$1.$2').replace(/(\d{3})(\d)/, '$1.$2').replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+}
+function showMaskTel(tel) {
+  tel = tel.replace(/\D/g, '');
+  if (tel.length <= 10) {
+    // Telefone fixo (DDD 0000-0000)
+    return tel.replace(/(\d{2})(\d{4})(\d{4})$/, '($1) $2-$3');
+  } else {
+    // Telefone celular (DDD 00000-0000)
+    return tel.replace(/(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
+  }
+}
+function showMaskRG(rg) {
+  // Remove caracteres que não são letras ou números
+  rg = rg.replace(/[^0-9A-Z]/gi, '');
+
+  // Aplica a máscara no formato XX-XXX-XXX-XX
+  return rg.replace(/(\w{2})(\w)/, '$1.$2') // Adiciona o primeiro hífen
+  .replace(/(\w{3})(\w)/, '$1.$2') // Adiciona o segundo hífen
+  .replace(/(\w{3})(\w)/, '$1-$2') // Adiciona o terceiro hífen
+  .replace(/(\w{2})$/, '$1'); // Adiciona os últimos dois caracteres
+}
+function showMaskNameAndLastName(nameOrLastName) {
+  nameOrLastName = nameOrLastName.replace(/[^A-Za-z\s]/g, '');
+  return nameOrLastName;
 }
 
 /***/ })
@@ -545,6 +646,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_AuthPrompt_handleAuthSubmit_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/AuthPrompt/handleAuthSubmit.js */ "./renderer/modules/AuthPrompt/handleAuthSubmit.js");
 /* harmony import */ var _modules_Register_handleRegisterSubmit_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/Register/handleRegisterSubmit.js */ "./renderer/modules/Register/handleRegisterSubmit.js");
 /* harmony import */ var _modules_ControllerWindow_RegPeopleWin_RegPeopleForm_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/ControllerWindow/RegPeopleWin/RegPeopleForm.js */ "./renderer/modules/ControllerWindow/RegPeopleWin/RegPeopleForm.js");
+/* harmony import */ var _utils_showMask_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./utils/showMask.js */ "./renderer/utils/showMask.js");
+
 
 
 
@@ -593,7 +696,7 @@ window.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  //Tela Principal
+  // Tela Principal
   (0,_modules_ControllerWindow_showNameUser_js__WEBPACK_IMPORTED_MODULE_0__["default"])();
 
   // Seleciona uma linha da tabela
@@ -630,6 +733,15 @@ window.addEventListener('DOMContentLoaded', function () {
       rgField.style.display = 'none';
       orgField.style.display = 'none';
     }
+  });
+
+  // Mascaras nos inputs
+  document.addEventListener('input', function (e) {
+    var el = e.target;
+    if (el.id === 'cpf_input') el.value = (0,_utils_showMask_js__WEBPACK_IMPORTED_MODULE_5__["default"])(el.value);
+    if (el.id === 'tel_inp_cad') el.value = (0,_utils_showMask_js__WEBPACK_IMPORTED_MODULE_5__.showMaskTel)(el.value);
+    if (el.id === 'rg_input') el.value = (0,_utils_showMask_js__WEBPACK_IMPORTED_MODULE_5__.showMaskRG)(el.value);
+    if (el.id === 'nm_inp_cad' || el.id === 'sb_inp_cad') el.value = (0,_utils_showMask_js__WEBPACK_IMPORTED_MODULE_5__.showMaskNameAndLastName)(el.value);
   });
 });
 /******/ })()

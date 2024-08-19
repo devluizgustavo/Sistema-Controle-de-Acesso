@@ -20,9 +20,11 @@ export default async function handleLoginSubmit(event) {
       !passwordRegex.test(dataLogin.password)) errors.push('Campos não atendem aos requisitos necessários.<br>');
     if (errors.length > 0) return errors.forEach((val) => showError('error', val));
 
-    const res = await window.electron.getLogin(dataLogin);
+    const login = await window.electron.getLogin(dataLogin);
 
-    if (res) window.electron.send('success-login');
+    if (!login) return;
+
+    return window.electron.send('success-login');
   } catch (e) {
     console.error('Ocorreu um erro ao tentar efetuar o login', e);
   }

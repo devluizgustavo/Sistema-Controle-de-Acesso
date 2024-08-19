@@ -7,6 +7,7 @@ contextBridge.exposeInMainWorld('electron', {
   getLogin: (arg) => ipcRenderer.invoke('form-login', arg),
   getRegister: (arg) => ipcRenderer.invoke('form-register', arg), 
   getUser: () => ipcRenderer.invoke('get-user'),
+  getCadPeople: (arg) => ipcRenderer.invoke('form-cad-peoples', arg)
 });
 
 

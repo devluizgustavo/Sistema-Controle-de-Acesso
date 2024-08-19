@@ -1,21 +1,25 @@
 const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const path = require('path');
-const { FindAll, Store, FindOne } = require('./src/util/dbRepository.js');
-const { hashCompare, createdHash } = require('./src/bcrypt/bcryptFunc.js');
+const { FindAll, Create, FindOne } = require('./src/util/dbRepository.js');
+const { hashCompare, createdHash } = require('./src/util/bcryptFunc.js');
+const peopleCadController = require('./src/controllers/peopleCadController.js');
+const loginController = require('./src/controllers/loginController.js');
+const registerController = require('./src/controllers/registerController.js');
+const { checkedAuthCode } = require('./src/middlewares/globalMiddleware.js');
 
-let mainWindow = null;
-let promptWindow = null;
-let registerWindow = null;
-let controllerWindow = null;
-let registerPeopleWindow = null;
+global.mainWindow = null;
+global.promptWindow = null;
+global.registerWindow = null;
+global.controllerWindow = null;
+global.registerPeopleWindow = null;
 
 let admin = null;
-let sql = null;
 let user = null;
+
 
 class createAllWindows {
   static createAuthPromptWindow() {
-    promptWindow = new BrowserWindow({
+    global.promptWindow = new BrowserWindow({
       width: 650,
       height: 350,
       title: 'Alerta',
@@ -42,7 +46,7 @@ class createAllWindows {
   }
 
   static createLoginWindow() {
-    mainWindow = new BrowserWindow({
+    global.mainWindow = new BrowserWindow({
       height: 1920,
       width: 1080,
       icon: path.join(__dirname, 'assets', 'img', 'icons', 'iconApp', '512x512.png'),
@@ -56,11 +60,12 @@ class createAllWindows {
 
     mainWindow.setMenuBarVisibility(false);
     mainWindow.maximize();
+    mainWindow.webContents.openDevTools(true);
     mainWindow.loadFile(path.join(__dirname, 'renderer', 'pages', 'loginPage.html'));
   }
 
   static createRegisterWindow() {
-    registerWindow = new BrowserWindow({
+    global.registerWindow = new BrowserWindow({
       width: 1920,
       height: 1080,
       icon: path.join(__dirname, 'assets', 'img', 'icons', 'iconApp', '512x512.png'),
@@ -89,7 +94,7 @@ class createAllWindows {
   }
 
   static createControllerWindow() {
-    controllerWindow = new BrowserWindow({
+    global.controllerWindow = new BrowserWindow({
       width: 1920,
       height: 1080,
       icon: path.join(__dirname, 'assets', 'img', 'icons', 'iconApp', '512x512.png'),
@@ -131,13 +136,13 @@ class createAllWindows {
     // });
 
     controllerWindow.maximize();
-    // controllerWindow.webContents.openDevTools(true);
+    controllerWindow.webContents.openDevTools(true);
     controllerWindow.setMenuBarVisibility(false);
     controllerWindow.loadFile(path.join(__dirname, 'renderer', 'pages', 'controllerPage.html'));
   }
 
   static createRegisterPeopleWindow() {
-    registerPeopleWindow = new BrowserWindow({
+    global.registerPeopleWindow = new BrowserWindow({
       width: 1280,
       height: 720,
       icon: path.join(__dirname, 'assets', 'img', 'icons', 'iconApp', '512x512.png'),
@@ -170,71 +175,81 @@ app.whenReady().then(() => {
   createAllWindows.createLoginWindow();
 });
 
-// LOGIN PAGE EVENTS
-//Checking Login
+//     VERIFICAÇÃO DOS FORMULÁRIOS ENVIADOS
+//Checagem de login no sistema
 ipcMain.handle('form-login', async (event, args) => {
   try {
-    sql = `SELECT *
-           FROM Controlador
-           WHERE ctr_usu = (?)`;
-    const userLog = await FindOne(sql, args.user);
-    if (!userLog) return dialog.showErrorBox('Erro', 'Usuário não existe');
-    if (userLog.ctr_usu !== args.user) return dialog.showErrorBox('Erro', 'Usuário inválido');
-    if (!await hashCompare(args.password, userLog.ctr_senha)) return dialog.showErrorBox('Erro', 'Senha inválida');
+    const loginOn = await loginController(args);
+    if (!loginOn) return false;
 
-    //If USER then inactivated, block your access
-    if (userLog.ctr_ativo !== 1) return dialog.showErrorBox('Erro', 'Seu usuário está inativado. Acesso negado');
-    user = userLog;
+    user = loginOn
     return true;
   } catch (e) {
-    console.log(e);
+    console.error('Erro ao tentar efetuar o login:', e);
   }
 });
-//If the login is correct
-ipcMain.on('success-login', () => {
-  dialog.showMessageBoxSync(mainWindow, {
-    title: 'Login feito com sucesso',
-    message: `Sua sessão será iniciada`
+
+//Chegagem de registro no sistema
+ipcMain.handle('form-register', async (event, args) => {
+  try {
+    const newUser = await registerController(args, admin.adm_id);
+    if (!newUser) return false;
+
+    return true;
+  } catch (e) {
+    console.error('Erro ao tentar cadastrar:', e);
+  }
+});
+
+//Checagem do codigo de acesso para acessar partes restritas do sistema
+ipcMain.handle('auth-required', async (event, args) => {
+  try {
+    const adminChecked = await checkedAuthCode(args);
+    if (!adminChecked) return false;
+
+    admin = adminChecked;
+    return true;
+  } catch (e) {
+    console.error('Erro ao validar a chave de acesso', e);
+  }
+});
+
+//Chegagem do cadastro da pessoa no sistema
+ipcMain.handle('form-cad-peoples', async (event, args) => {
+  try {
+    const peopleCad = await peopleCadController(args, user.ctr_id)
+    if (!peopleCad) return false;
+
+    return true;
+  } catch (e) {
+    console.error('Erro ao tentar cadastrar:', e);
+  }
+});
+
+//         EVENTOS NAS PÁGINAS
+
+//          PAGINA DE LOGIN
+//Caso o login for bem-sucedido
+ipcMain.on('success-login', async () => {
+  await dialog.showMessageBox(global.mainWindow, {
+    type: 'info',
+    title: 'Sucesso',
+    message: 'Login efetuado\nClique em continuar para acessar o sistema',
+    buttons: ['Continuar']
   });
   mainWindow.close();
   createAllWindows.createControllerWindow()
 });
-//Open prompt for code-access
+//Abrir a página para digitar o codigo de acesso
 ipcMain.on('open-prompt', (event) => {
   createAllWindows.createAuthPromptWindow()
   promptWindow.once('ready-to-show', () => {
     promptWindow.show();
   });
 });
-// Get User From Renderer
-ipcMain.handle('get-user', async (event) => {
-  try {
-    const res = await user;
-    return res;
-  } catch (e) {
-    console.log(e);
-  }
-});
 
-//PROMPT AUTH EVENTS
-// Checking Admin-Code-Send
-ipcMain.handle('auth-required', async (event, args) => {
-  try {
-    sql = 'SELECT * FROM Admin';
-    const allHashsDB = await FindAll(sql);
-    for (let row of allHashsDB) {
-      let hashs = row.adm_code;
-      if (await hashCompare(args, hashs)) {
-        admin = row;
-        return true;
-      }
-    }
-    // return dialog.showErrorBox('Negado', 'Chave de Acesso Inválida ou Expirada');
-  } catch (e) {
-    console.error('Ocorre um erro', e);
-  }
-});
-//If the access code is correct
+//   PAGINA DE AUTENTICAÇÃO DO CODIGO
+//Caso a checagem for bem-sucedida
 ipcMain.on('success-auth', () => {
   dialog.showMessageBoxSync(promptWindow, {
     title: 'Acesso Concedido',
@@ -244,27 +259,14 @@ ipcMain.on('success-auth', () => {
   mainWindow.close();
   createAllWindows.createRegisterWindow();
 });
-//if access code is wrong
+//Caso o código de acesso estiver incorreto
 ipcMain.on('block-prompt', () => {
   dialog.showErrorBox('Acesso Negado', 'Sua sessão será encerrada');
   app.quit();
 });
 
-//REGISTER PAGE EVENTS
-// Checking data the Form-Register and Validation new User
-ipcMain.handle('form-register', async (event, args) => {
-  try {
-    sql = 'INSERT INTO Controlador (ctr_usu, ctr_nome, ctr_sbnome, ctr_senha, ctr_created_by, ctr_sexo) VALUES (?, ?, ?, ?, ?, ?)';
-    const hashPassword = await createdHash(args.password, 10);
-    const row = await Store(sql, [args.user, args.name, args.lastname, hashPassword, admin.adm_id, args.sexo]);
-    if (args == '') return dialog.showErrorBox('Erro', 'Campos digitados incorretamente');
-    if (!row) return dialog.showErrorBox('Não foi possível cadastrar', 'Usuário já existe');
-    return true;
-  } catch (e) {
-    console.log(e);
-  }
-});
-//If the register is correct
+//          PAGINA DE REGISTRO
+//Caso a checagem do registro for bem-sucedida
 ipcMain.on('success-register', () => {
   dialog.showMessageBoxSync(registerWindow, {
     title: 'Sucesso',
@@ -273,18 +275,23 @@ ipcMain.on('success-register', () => {
   registerWindow.close();
   createAllWindows.createLoginWindow();
 });
-//Back for LoginPage (RegisterPage)
+//Voltar para página de Login
 ipcMain.on('go-back', () => {
   registerWindow.close();
   createAllWindows.createLoginWindow();
 });
 
-//CONTROLLER PAGE EVENTS
-//Open Window for Register People in DB
-ipcMain.on('click-btn-cad', () => {
-  createAllWindows.createRegisterPeopleWindow();
+//    PAGINA DE CONTROLE DE CADASTROS
+//Abrir janela de cadastro de pessoas
+ipcMain.on('click-btn-cad', async () => {
+  try {
+  await createAllWindows.createRegisterPeopleWindow();
+  } catch(e) {
+    console.error('Erro ao criar a janela de cadastro', e);
+  }
+ 
 });
-//Close the session
+//Encerrar a sessão
 ipcMain.on('close-session', async (event) => {
   try {
     event.preventDefault();
@@ -299,17 +306,17 @@ ipcMain.on('close-session', async (event) => {
         user = null;
         controllerWindow.close();
         createAllWindows.createLoginWindow();
-        dialog.showMessageBox(mainWindow, {
-          title: 'Atenção',
-          message: 'Sua sessão foi encerrada'
-        })
       }
     });
   } catch (e) {
     console.log(e);
   }
 });
-//Back to Controller Page
+//Voltar para a pagina de controle
 ipcMain.on('back-to-controller', () => {
   registerPeopleWindow.close();
 });
+
+//         EVENTOS REUTILIZAVEIS
+// Mandar os dados do usuário sempre que solicitado
+ipcMain.handle('get-user', () => { return user; });

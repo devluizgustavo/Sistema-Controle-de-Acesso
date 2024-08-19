@@ -9,9 +9,9 @@ export default async function handleRegisterSubmit(event) {
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/;
     const formRegister = new FormData(event.target);
     const dataUser = {
+      user: formRegister.get('user').trim(),
       name: formRegister.get('name').trim(),
       lastname: formRegister.get('lastname').trim(),
-      user: formRegister.get('user').trim(),
       password: formRegister.get('password').trim(),
       sexo: formRegister.get('gender')
     };

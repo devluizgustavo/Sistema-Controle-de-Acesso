@@ -1,44 +1,46 @@
 import ValidateCPF from './ValidateCPF.js';
 import showError from '../../../utils/showError.js'
 
-
 class RegPeopleForm {
   constructor() {
     this.form = document.getElementById('formCadPeople');
     this.errors = [];
   }
 
-  async handleSubmit(event) {
-    try {
-      event.preventDefault();
-      this.getData();
-    } catch (e) {
-      console.error('Ocorreu um erro ao tentar efetuar o cadastro', e);
-    }
+  handleSubmit(event) {
+    event.preventDefault();
+    this.getDataAndValidate();
   }
 
-  getData() {
-    const form = new FormData(this.form);
-    const data = {
-      name: form.get('name')?.trim() || '',
-      lastname: form.get('lastname')?.trim() || '',
-      cpf: form.get('cpf')?.trim() || '',
-      rg: form.get('rg')?.trim() || '',
-      org: form.get('org')?.trim() || '',
-      dtnasc: form.get('dtnasc')?.trim() || '',
-      tel: form.get('tel')?.trim() || '',
-      email: form.get('email')?.trim() || '',
-    };
+  async getDataAndValidate() {
+    try {
+      const form = new FormData(this.form);
+      const data = {
+        name: form.get('name')?.trim() || '',
+        lastname: form.get('lastname')?.trim() || '',
+        cpf: form.get('cpf')?.trim() || '',
+        rg: form.get('rg')?.trim() || '',
+        org: form.get('org')?.trim() || '',
+        dtnasc: form.get('dtnasc')?.trim() || '',
+        sexo: document.getElementById('id_type_sexo').value,
+        tel: form.get('tel')?.trim() || '',
+        email: form.get('email')?.trim() || '',
+      };
 
-    const checked = this.checkCamps(data);
-    if (!checked) {
-      this.errors.forEach((val) => { showError('error-message', val) })
-    };
+      const checked = this.checkCamps(data);
+      if (!checked) {
+        return this.errors.forEach((val) => { showError('error-message', val) })
+      };
+
+      const isTrue = await window.electron.getCadPeople(data);
+      if (isTrue) this.cleanInputsBefVal();
+    } catch (e) {
+      console.error('Erro ao tentar a comunicação com o sistema', e);
+    }
   }
 
   checkCamps(data) {
     const selectIdent = document.getElementById('id_type_identific');
-    const selectSexo = document.getElementById('id_type_sexo')
     let valid = false;
 
     for (let errorText of this.form.querySelectorAll('.error-text')) {
@@ -48,19 +50,31 @@ class RegPeopleForm {
     this.errors = [];
     document.getElementById("error-message").innerHTML = '';
 
-    if (!selectIdent.value) this.errors.push('É necessário que ao menos CPF ou RG seja selecionado<br>');
-    if (!selectSexo.value) this.errors.push('É necessário que identifique o gênero<br>');
     if (data.name === '' || data.lastname === '') this.errors.push('Campos: Nome/Sobrenome não podem estar vazios<br>');
+    if (!selectIdent.value) this.errors.push('É necessário que ao menos CPF ou RG seja selecionado<br>');
     if (!data.cpf && !data.rg && !data.org) this.errors.push('Você deve preencher pelo menos um dos campos: CPF ou RG<br>');
-    if (!data.dtnasc) this.errors.push('É necessário que a data de nascimento seja preenchida');
+    if (!data.dtnasc) this.errors.push('É necessário que a data de nascimento seja preenchida<br>');
+    if (!data.sexo) this.errors.push('É necessário que identifique o gênero<br>');
+    if (data.email !== '') {
+      const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!regexEmail.test(data.email)) this.errors.push('Email Inválido<br>');
+    }
+    if (data.tel !== '') {
+      if (data.tel.length < 14 || data.tel.length > 15) this.errors.push('Número de contato incorreto<br>');
+    }
 
-    const Rg_isNotNull = data.rg && data.org && !data.cpf;  // Verifica se o RG e o Orgão Expeditor estão preenchidos e  o CPF está vazio
-    const All_isNotNull = data.rg && data.org && data.cpf;  // Verifica se o RG e o Orgão Expeditor estão preenchidos e  o CPF também
-    if (Rg_isNotNull || All_isNotNull) {                    // Se qualquer uma das condições for verdadeira, define a validade como verdadeiro
+    const Rg_isNotNull = data.rg && !data.cpf;  // Verifica se o RG e o Orgão Expeditor estão preenchidos e  o CPF está vazio
+    const CPF_isNotNull = !data.rg && data.cpf;  // Verifica se o RG e o Orgão Expeditor estão preenchidos e  o CPF está vazio
+    const All_isNotNull = data.rg && data.cpf;  // Verifica se o RG e o Orgão Expeditor estão preenchidos e  o CPF também
+    if (Rg_isNotNull || CPF_isNotNull || All_isNotNull) {        // Se qualquer uma das condições for verdadeira, define a validade como verdadeiro
       valid = true;
     }
 
-    if (data.cpf !== '') {
+    if (Rg_isNotNull) {
+      if (data.rg.length < 7 || data.rg.length > 13) this.errors.push('RG inválido');
+    }
+
+    if (CPF_isNotNull) {
       const cpf_inst = new ValidateCPF(data.cpf)
       if (cpf_inst.validate()) {
         valid = true;
@@ -70,6 +84,16 @@ class RegPeopleForm {
     }
 
     return valid === true && this.errors.length === 0 ? true : false;
+  }
+
+  cleanInputsBefVal() {
+    for (let input of document.querySelectorAll('input')) {
+      input.value = "";
+    }
+
+    for (let select of document.querySelectorAll('select')) {
+      select.value = "";
+    };
   }
 }
 

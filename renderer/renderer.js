@@ -3,6 +3,7 @@ import handleLoginSubmit from './modules/Login/handleLoginSubmit.js';
 import handleAuthSubmit from './modules/AuthPrompt/handleAuthSubmit.js';
 import handleRegisterSubmit from './modules/Register/handleRegisterSubmit.js'
 import RegPeopleForm from './modules/ControllerWindow/RegPeopleWin/RegPeopleForm.js'
+import showMaskCPF, { showMaskTel, showMaskRG, showMaskNameAndLastName } from './utils/showMask.js';
 
 //Executar ações quando o DOM carregar
 window.addEventListener('DOMContentLoaded', () => {
@@ -30,7 +31,7 @@ window.addEventListener('DOMContentLoaded', () => {
       } else if (el.id === 'formPrompt') {
         handleAuthSubmit(e);
       } else if (el.id === 'formCadPeople') {
-        RegPeopleForm.handleSubmit(e)
+        RegPeopleForm.handleSubmit(e);
       }
     });
   });
@@ -48,7 +49,7 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  //Tela Principal
+  // Tela Principal
   showNameUser();
 
   // Seleciona uma linha da tabela
@@ -86,5 +87,12 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-
+  // Mascaras nos inputs
+  document.addEventListener('input', (e) => {
+    const el = e.target;
+    if (el.id === 'cpf_input') el.value = showMaskCPF(el.value);
+    if (el.id === 'tel_inp_cad') el.value = showMaskTel(el.value);
+    if (el.id === 'rg_input') el.value = showMaskRG(el.value);
+    if (el.id === 'nm_inp_cad' || el.id === 'sb_inp_cad') el.value = showMaskNameAndLastName(el.value);
+  })
 });

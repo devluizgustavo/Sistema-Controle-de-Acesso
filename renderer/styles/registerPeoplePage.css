@@ -41,7 +41,7 @@ body {
   width: 50%;
   display: inline-block;
   vertical-align: top;
-  margin: 60px;
+  margin: 75px 0px 0px 70px;
   justify-content: center;
 }
 
@@ -53,7 +53,7 @@ p {
 
 .form-group {
   display: inline-block;
-  margin: 15px auto -15px 35px;
+  margin: 12px auto -15px 35px;
 }
 
 .form-input {
@@ -136,8 +136,13 @@ p {
   color: var(--error-color);
   font-size: 17px;
   font-weight: 400;
-  margin: 15px auto;
+  margin: 15px 0px;
   text-align: center;
+}
+
+.error {
+  border: 2px solid var(--error-color);
+  transition: border-color 0.3s ease;
 }
 
 .text {

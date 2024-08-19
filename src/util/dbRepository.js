@@ -33,13 +33,13 @@ async function FindOne(sql, params = []) {
   }
 }
 
-async function Store(sql, params = []) {
+async function Create(sql, params = []) {
   try {
     const db = await db_connection().then((res) => res);
     const row = await new Promise((resolve, reject) => {
       db.run(sql, params, (err) => {
         if (err) reject(err);
-        resolve('Dados inseridos com sucesso!');
+        return resolve(true);
       });
     })
 
@@ -51,6 +51,6 @@ async function Store(sql, params = []) {
 
 module.exports = {
   FindAll,
-  Store,
+  Create,
   FindOne,
 }
