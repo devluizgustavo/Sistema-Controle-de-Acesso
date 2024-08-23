@@ -1,0 +1,152 @@
+:root {
+  --primary-bg-color: rgb(53, 53, 53);
+  --secondary-bg-color: rgb(71, 67, 67);
+  --tertiary-bg-color: rgb(41, 39, 39);
+  --border-color: #7a7a7a;
+  --focus-border-color: rgb(95, 90, 90);
+  --error-color: rgb(189, 72, 72);
+  --text-color: white;
+  --font-size-base: 1em;
+  --font-size-large: 20px;
+  --font-size-small: 17px;
+  --form-input-height: 65px;
+  --btn-width: 35em;
+  --btn-height: 4em;
+  --box-shadow: 0px 1px 5px #1b1a1a;
+  --box-shadow-inset: inset 0px 1px 5px #1b1a1a;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Ubuntu Sans", sans-serif;
+}
+
+body {
+  background-color: #f4f4f4;
+}
+
+.container {
+  display: flexbox;
+  margin: 90px;
+  justify-content: center;
+  justify-items: center;
+}
+
+p {
+  opacity: 50%;
+  font-weight: 0;
+  margin: 25px 0;
+}
+
+.form-group {
+  display: flex;
+  margin: 12px auto -15px 35px;
+  justify-content: center;
+}
+
+.form-input {
+  text-align: center;
+  margin: 25px 0;
+  font-size: var(--font-size-base);
+  height: var(--form-input-height);
+  width: 30em;
+  padding: 8px;
+  border-radius: 10px;
+  outline: none;
+  border: 2px solid var(--border-color);
+  background-color: #f4f4f4;
+  display: inline-block;
+}
+
+.select-group {
+  height: 50px;
+  width: 26em;
+}
+
+
+.form-input:focus {
+  border-color: var(--focus-border-color);
+  transition: border-color 500ms ease-in-out;
+}
+
+.label,
+.labelesp {
+  position: fixed;
+  background-color: #f4f4f4;
+  font-size: var(--font-size-small);
+  height: 20px;
+  margin: 15px;
+  width: auto;
+  padding: 0px 10px 0px 10px;
+  color: var(--secondary-bg-color);
+}
+
+.btnLiberar {
+  padding: 1%;
+  width: var(--btn-width);
+  height: var(--btn-height);
+  border-radius: 10px;
+  border: 1px solid var(--text-color);
+  color: var(--text-color);
+  background: var(--primary-bg-color);
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background 500ms ease-in-out;
+  display: inline-block;
+  margin: 50px;
+}
+
+.btnLiberar:hover {
+  background: var(--secondary-bg-color);
+}
+
+.btnLiberar:active {
+  padding-left: 10px;
+  background: var(--tertiary-bg-color);
+  transition: background 100ms ease-in-out;
+}
+
+#error-message {
+  color: var(--error-color);
+  font-size: 17px;
+  font-weight: 400;
+  margin: 15px 0px;
+  text-align: center;
+}
+
+.error {
+  border: 2px solid var(--error-color);
+  transition: border-color 0.3s ease;
+}
+
+.text {
+  text-align: center;
+  font-size: var(--font-size-large);
+}
+
+
+.error-text {
+  padding: 0px;
+  margin: 0px;
+}
+
+
+/* Adicione media queries para responsividade */
+@media (max-width: 768px) {
+  .column {
+    width: 100%;
+    height: auto;
+    margin-bottom: 2em;
+  }
+
+  .container {
+    width: 90%;
+    margin: 3em auto;
+  }
+
+  .btnRegister {
+    width: 100%;
+  }
+}

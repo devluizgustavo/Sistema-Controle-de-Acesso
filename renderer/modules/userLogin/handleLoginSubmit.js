@@ -21,10 +21,7 @@ export default async function handleLoginSubmit(event) {
     if (errors.length > 0) return errors.forEach((val) => showError('error', val));
 
     const login = await window.electron.getLogin(dataLogin);
-
     if (!login) return;
-
-    return window.electron.send('success-login');
   } catch (e) {
     console.error('Ocorreu um erro ao tentar efetuar o login', e);
   }

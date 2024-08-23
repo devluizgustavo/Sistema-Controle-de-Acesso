@@ -45,17 +45,4 @@ class AuthModel {
   }
 }
 
-/*
-    sql = 'SELECT * FROM Admin';
-    const allHashsDB = await FindAll(sql);
-    for (let row of allHashsDB) {
-      let hashs = row.adm_code;
-      if (await hashCompare(args, hashs)) {
-        admin = row;
-        return true;
-      }
-    }
-    // return dialog.showErrorBox('Negado', 'Chave de Acesso Inválida ou Expirada');
-*/
-
 module.exports = AuthModel

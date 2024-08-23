@@ -18,4 +18,5 @@ async function loginController(args) {
     console.error('Erro ao tentar fazer o login:', e);
   }
 }
+
 module.exports = loginController;

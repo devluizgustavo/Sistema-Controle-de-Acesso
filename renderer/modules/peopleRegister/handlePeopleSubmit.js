@@ -1,5 +1,5 @@
 import ValidateCPF from './ValidateCPF.js';
-import showError from '../../../utils/showError.js'
+import showError from '../../utils/showError.js'
 
 class RegPeopleForm {
   constructor() {
@@ -32,8 +32,8 @@ class RegPeopleForm {
         return this.errors.forEach((val) => { showError('error-message', val) })
       };
 
-      const isTrue = await window.electron.getCadPeople(data);
-      if (isTrue) this.cleanInputsBefVal();
+      const isValid = await window.electron.getCadPeople(data);
+      if (!isValid) return this.cleanInputsBefVal();
     } catch (e) {
       console.error('Erro ao tentar a comunicação com o sistema', e);
     }

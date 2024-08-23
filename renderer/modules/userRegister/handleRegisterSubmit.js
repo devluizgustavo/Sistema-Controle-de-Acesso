@@ -1,4 +1,4 @@
-import showError from "../../utils/showError";
+import showError from "../../utils/showError.js";
 let errors = [];
 
 export default async function handleRegisterSubmit(event) {

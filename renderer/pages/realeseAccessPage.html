@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastrar</title>
+  <link rel="stylesheet" href="../styles/realeseAcessPage.css">
+</head>
+
+<body>
+
+
+  <div class="container">
+    <header class="text">
+      <h1>Libere um novo acesso</h1>
+      <p>Selecione o <b>Departamento</b> e o <b>Assunto</b> abaixo</p>
+    </header>
+    <!-- Inicio Container -->
+    <form id="formRealeaseAccess">
+      <!-- Formulario -->
+      <div class="form-group">
+        <label for="id_type" class="label select">Departamento</label>
+        <select id="id_type_depto" name="departamento" class="form-input">
+          <option value="">Escolha uma opção</option>
+          <option value="1">Secretaria</option>
+          <option value="2">Jurídico</option>
+          <option value="3">Informática</option>
+          <option value="4">Diretoria</option>
+          <option value="5">Tesouraria</option>
+          <option value="6">Gráfica</option>
+          <option value="7">Copa</option>
+          <option value="8">Manutenção</option>
+          <option value="9">Homologação</option>
+          <option value="10">Recursos Humanos</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="id_type" class="label select">Assunto</label>
+        <select id="id_type_assunto" name="assunto" class="form-input">
+          <option value="">Escolha uma opção</option>
+
+        </select>
+      </div>
+
+      <div class="form-group">
+        <button type="submit" class="btnLiberar">Liberar Acesso</button>
+      </div>
+    </form>
+
+    <div id="error-message"></div>
+  </div> <!-- Fim do Container -->
+
+</body>
+
+<script src="../../public/assets/js/bundle.js"></script>
+
+</html>
