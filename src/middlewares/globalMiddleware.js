@@ -20,9 +20,8 @@ async function checkedAuthCode(args) {
 async function checkedLoggedIn() {
   if (global.user === null) {
     dialog.showErrorBox('Não autorizado', 'Você precisa fazer login para acessar essa área');
-    return false;
+    return true;
   }
-  return true;
 }
 
 module.exports = {

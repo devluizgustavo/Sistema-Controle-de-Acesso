@@ -1,6 +1,6 @@
 
 // Função para inicializar event listeners de input com a tecla enter
-export default function initInputListeners() {
+export default async function initInputListeners() {
   document.querySelectorAll('input').forEach(input => {
     input.addEventListener('keypress', e => {
       if (e.key === 'Enter') {

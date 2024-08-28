@@ -1,6 +1,6 @@
 import getAssuntosInDepto, { createElementSelect } from "./getAssuntos.js"
 
-export default function invokeAssuntosInInput() {
+export default async function invokeAssuntosInInput() {
   document.addEventListener('change', async (e) => {
     if (e.target.id === 'id_type_depto') {
       removeOptionsInAssunto()

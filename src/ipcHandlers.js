@@ -1,21 +1,28 @@
 const { ipcMain, dialog, app } = require('electron');
-const { registerPeople, getAssunto } = require('./controllers/mainController.js');
-const loginController = require('./controllers/loginController.js');
-const registerController = require('./controllers/registerController.js');
+
+const { closeSession, openWinRegisterPerson, openWinAccessRelease } = require('./controllers/HomeController.js');
+const UserLoginController = require('./controllers/UserLoginController.js');
+const UserRegisterController = require('./controllers/UserRegisterController.js');
+const AccessHistoryController = require('./controllers/AccessHistoryController.js');
+const PersonRegistrationController = require('./controllers/PersonRegistrationController.js');
+
 const { checkedAuthCode, checkedLoggedIn } = require('./middlewares/globalMiddleware.js');
-const accessHistController = require('./controllers/accessHistController.js');
-const windowManager = require('../windows.js');
+
+const getAssuntos = require('./util/getAssuntos');
+const getAccessInBuildingAccess = require('./util/getAccessInBuildingAccess.js');
+const getRecordsNotInBuildingAccess = require('./util/getRecordsNotInBuildingAccess');
 
 global.user = null;
 global.admin = null;
 
-let lastRegisterPeople = null;
+let idAccessClick = null;
+const windowManager = require('../windows.js');
 
 module.exports = function setupIPCHandlers() {
   // Responsável por chamar o Controller do Login
   ipcMain.handle('form-login', async (event, args) => {
     try {
-      const loginOn = await loginController(args);
+      const loginOn = await UserLoginController(args);
       if (!loginOn) return false;
 
       global.user = loginOn;
@@ -28,7 +35,7 @@ module.exports = function setupIPCHandlers() {
       });
 
       windowManager.mainWindow.close();
-      windowManager.createControllerWindow();
+      windowManager.createHomeWindow();
 
       return true;
     } catch (e) {
@@ -39,7 +46,7 @@ module.exports = function setupIPCHandlers() {
   // Responsável por chamar o Controller de Registro
   ipcMain.handle('form-register', async (event, args) => {
     try {
-      const newUser = await registerController(args, global.admin?.adm_id);
+      const newUser = await UserRegisterController(args, global.admin?.adm_id);
       if (!newUser) return false;
 
       await dialog.showMessageBox(windowManager.registerWindow, {
@@ -80,12 +87,13 @@ module.exports = function setupIPCHandlers() {
   // Responsável por chamar o Controller do cadastro de pessoas ao prédio
   ipcMain.handle('form-cad-peoples', async (event, args) => {
     try {
-      const peopleCad = await registerPeople(args, global.user?.ctr_id);
+      const peopleCad = await PersonRegistrationController(args, global.user?.ctr_id);
       if (peopleCad) {
         windowManager.registerPeopleWindow.close();
-        windowManager.createReleaseAccessWindow();
-        lastRegisterPeople = { rg: args.rg, cpf: args.cpf }
+        //Sinal dizendo ao front-end que atualize a tabela 
+        windowManager.homeWindow.webContents.send('updateTable');
         return true;
+
       }
 
       return false;
@@ -112,41 +120,28 @@ module.exports = function setupIPCHandlers() {
   });
 
   // Responsável por abrir a janela de Cadastro de Pessoas
-  ipcMain.on('click-btn-cad', async () => {
-    try {
-      const isLogged = await checkedLoggedIn(); //Middleware
-      if (!isLogged) return;
-      windowManager.createRegisterPeopleWindow();
-    } catch (e) {
-      console.error('Erro ao criar a janela de cadastro', e);
-    }
+  ipcMain.on('click-btn-cad', async (e) => {
+    e.preventDefault();
+    await openWinRegisterPerson();
   });
 
   // Responsável por sair da sessão atual
   ipcMain.on('close-session', async (event) => {
-    try {
-      event.preventDefault();
-      await dialog.showMessageBox(windowManager.controllerWindow, {
-        type: 'warning',
-        buttons: ["Cancelar", "Encerrar"],
-        defaultId: 1,
-        title: "Confirmar",
-        message: "Você realmente deseja encerrar a sessão?",
-      }).then((val) => {
-        if (val.response === 1) {
-          global.user = null;
-          windowManager.controllerWindow.close();
-          windowManager.createLoginWindow();
-        }
-      });
-    } catch (e) {
-      console.error('Erro ao encerrar a sessão', e);
-    }
+    event.preventDefault();
+    await closeSession();
   });
 
   // Responsável por voltar para a página de controle de acesso
   ipcMain.on('back-to-controller', () => {
     windowManager.registerPeopleWindow.close();
+  });
+
+  //Responsável por abrir a janela de liberação de acesso
+  ipcMain.on('open-win-access-realease', async (event, id) => {
+    event.preventDefault();
+    const win = await openWinAccessRelease(id);
+    if (!win) return;
+    idAccessClick = id;
   });
 
   // Responsável por trazer os dados do usuário atual para o front-end
@@ -156,38 +151,34 @@ module.exports = function setupIPCHandlers() {
 
   // Responsável por trazer assuntos de determinado departamento
   ipcMain.handle('get-assunto-depto', async (event, args) => {
-    try {
-      event.preventDefault();
-      if (!args) dialog.showMessageBox(windowManager.releaseAccessWindow, {
-        type: 'warning',
-        title: 'Atenção',
-        message: 'Você precisa escolher uma das opções'
-      });
+    event.preventDefault();
+    if (!args) dialog.showMessageBox(windowManager.releaseAccessWindow, {
+      type: 'warning',
+      title: 'Atenção',
+      message: 'Você precisa escolher uma das opções'
+    });
 
-      const assuntosInDepto = await getAssunto(args);
-
-      return assuntosInDepto;
-    } catch (e) {
-      console.error('Erro ao tentar trazer os dados do assunto', e);
-    }
+    const assuntosInDepto = await getAssuntos(args);
+    return assuntosInDepto;
   });
 
   // Responsável por liberar o acesso de pessoas
   ipcMain.handle('set-historico-access', async (event, deptoAndAssunto) => {
     event.preventDefault();
-    const setAccess = await accessHistController(deptoAndAssunto, lastRegisterPeople);
+    if (!deptoAndAssunto) return false;
+    const setAccess = await AccessHistoryController(deptoAndAssunto, idAccessClick);
     if (!setAccess) return false;
 
-    await dialog.showMessageBox(windowManager.releaseAccessWindow, {
-      type: 'info',
-      title: 'Atenção',
-      message: `Acesso Concedido`,
-    });
-
-    windowManager.releaseAccessWindow.close();
-
     return true;
-  })
+  });
 
-  
+  // Responsável por trazer todos os ultimos acessos 
+  ipcMain.handle('get-all-access', async () => {
+    const getAccess = await getAccessInBuildingAccess();
+    const getRecords = await getRecordsNotInBuildingAccess();
+
+    const combinateArray = getAccess.concat(getRecords);
+
+    return combinateArray;
+  });
 }

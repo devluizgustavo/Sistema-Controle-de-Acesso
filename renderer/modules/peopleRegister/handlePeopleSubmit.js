@@ -62,6 +62,10 @@ class RegPeopleForm {
     if (data.tel !== '') {
       if (data.tel.length < 14 || data.tel.length > 15) this.errors.push('Número de contato incorreto<br>');
     }
+    if (data.org !== '') {
+      const regexOrg = /^[a-zA-Z]+$/;
+      if (!regexOrg.test(data.org)) this.errors.push('Orgão expeditor inválido');
+    }
 
     const Rg_isNotNull = data.rg && !data.cpf;  // Verifica se o RG e o Orgão Expeditor estão preenchidos e  o CPF está vazio
     const CPF_isNotNull = !data.rg && data.cpf;  // Verifica se o RG e o Orgão Expeditor estão preenchidos e  o CPF está vazio
@@ -83,8 +87,13 @@ class RegPeopleForm {
       }
     }
 
+    const isCaracterSpecial = /^[A-Za-zà-üÀ-ÜçÇ~\s]*$/
+    if (!isCaracterSpecial.test(data.name) || !isCaracterSpecial.test(data.lastname)) this.errors.push('Nome ou Sobrenome não pode conter caracteres especiais');
+
     return valid === true && this.errors.length === 0 ? true : false;
   }
+
+
 
   cleanInputsBefVal() {
     for (let input of document.querySelectorAll('input')) {

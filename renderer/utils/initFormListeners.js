@@ -5,7 +5,7 @@ import handlePeopleSubmit from '../modules/peopleRegister/handlePeopleSubmit.js'
 import handleAccessSubmit from '../modules/realeaseAccess/handleAccessSubmit.js'
 
 // Função para inicializar event listeners de submit
-export default function initFormListeners() {
+export default async function initFormListeners() {
   document.querySelectorAll('form').forEach(form => {
     form.addEventListener('submit', e => {
       e.preventDefault();

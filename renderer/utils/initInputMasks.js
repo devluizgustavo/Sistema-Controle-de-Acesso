@@ -1,7 +1,7 @@
 import showMaskCPF, { showMaskTel, showMaskRG, showMaskNameAndLastName } from './showMask';
 
 // Função para aplicar máscaras aos inputs
-export default function initInputMasks() {
+export default async function initInputMasks() {
   document.addEventListener('input', e => {
     const el = e.target;
 

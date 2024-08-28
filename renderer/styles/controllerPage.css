@@ -226,7 +226,7 @@ body {
   margin: -20px;
 }
 
-.styled-table {
+#access-table {
   width: 100%;
   border-collapse: collapse;
   margin: 0;
@@ -235,31 +235,31 @@ body {
 }
 
 
-.styled-table thead tr {
+#access-table thead tr {
   background-color: rgb(71, 71, 71);
   color: #ffffff;
   text-align: left;
 }
 
-.styled-table th,
-.styled-table td {
+#access-table th,
+#access-table td {
   padding: 12px 15px;
   cursor: pointer;
 }
 
-.styled-table tbody tr {
+#access-table tbody tr {
   border-bottom: 1px solid #dddddd;
 }
 
-.styled-table tbody tr:nth-of-type(even) {
+#access-table tbody tr:nth-of-type(even) {
   background-color: #f3f3f3;
 }
 
-.styled-table tbody tr:hover {
+#access-table tbody tr:hover {
   background-color: #f1f1f1;
 }
 
-.styled-table tbody tr.selected {
+#access-table tbody tr.selected {
   background-color: #66a0a08f;
   color: #ffffff;
 }
@@ -330,4 +330,8 @@ body {
   height: 5em;
   opacity: 85%;
   filter: grayscale(100%);
+}
+
+.selected {
+  background-color: rgb(36, 167, 167);
 }

@@ -2,7 +2,7 @@ const { Create, FindOne } = require('../util/dbRepository.js');
 const { captalizeText, removeMask } = require('../util/treatData.js');
 const validator = require('validator');
 
-class FormPeopleModel {
+class RegisterPeopleModel {
   constructor(args, ctr_id) {
     this.name = captalizeText(args.name);
     this.lastname = captalizeText(args.lastname);
@@ -111,4 +111,4 @@ class FormPeopleModel {
   }
 }
 
-module.exports = FormPeopleModel
+module.exports = RegisterPeopleModel;

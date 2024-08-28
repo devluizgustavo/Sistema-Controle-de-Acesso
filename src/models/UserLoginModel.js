@@ -1,7 +1,7 @@
 const { FindOne } = require('../util/dbRepository.js');
 const { hashCompare } = require('../util/bcryptFunc.js');
 
-class LoginModel {
+class UserLoginModel {
   constructor(args) {
     this.user = args.user;
     this.password = args.password;
@@ -71,4 +71,4 @@ class LoginModel {
   }
 }
 
-module.exports = LoginModel;
+module.exports = UserLoginModel;

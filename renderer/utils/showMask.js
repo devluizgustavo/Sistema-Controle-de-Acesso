@@ -31,6 +31,6 @@ export function showMaskRG(rg) {
 }
 
 export function showMaskNameAndLastName(nameOrLastName) {
-  nameOrLastName = nameOrLastName.replace(/[^A-Za-z\s]/g, '')
+  nameOrLastName = nameOrLastName.replace(/^[0-9\s]*$/g, '')
   return nameOrLastName;
 }

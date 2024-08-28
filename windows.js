@@ -6,7 +6,7 @@ class WindowManager {
     this.mainWindow = null;
     this.authWindow = null;
     this.registerWindow = null;
-    this.controllerWindow = null;
+    this.homeWindow = null;
     this.releaseAccessWindow = null;
     this.registerPeopleWindow = null;
   }
@@ -51,7 +51,7 @@ class WindowManager {
     });
 
     this.mainWindow.maximize();
-    this.mainWindow.webContents.openDevTools(true);
+    // this.mainWindow.webContents.openDevTools(true);
     this.mainWindow.loadFile(path.join(__dirname, 'renderer', 'pages', 'loginPage.html'));
   }
 
@@ -69,8 +69,8 @@ class WindowManager {
     this.registerWindow.loadFile(path.join(__dirname, 'renderer', 'pages', 'registerPage.html'));
   }
 
-  createControllerWindow() {
-    this.controllerWindow = this.createWindow({
+  createHomeWindow() {
+    this.homeWindow = this.createWindow({
       width: 1920,
       height: 1080,
       title: 'App Controle',
@@ -78,9 +78,9 @@ class WindowManager {
       center: true,
     });
 
-    this.controllerWindow.maximize();
-    this.controllerWindow.webContents.openDevTools(true);
-    this.controllerWindow.loadFile(path.join(__dirname, 'renderer', 'pages', 'controllerPage.html'));
+    this.homeWindow.maximize();
+    this.homeWindow.webContents.openDevTools(true);
+    this.homeWindow.loadFile(path.join(__dirname, 'renderer', 'pages', 'homePage.html'));
   }
 
   createRegisterPeopleWindow() {
@@ -115,7 +115,7 @@ class WindowManager {
       resizable: false,
     });
 
-    this.releaseAccessWindow.webContents.openDevTools(true);
+    // this.releaseAccessWindow.webContents.openDevTools(true);
     this.releaseAccessWindow.loadFile(path.join(__dirname, 'renderer', 'pages', 'realeseAccessPage.html'));
   }
 }

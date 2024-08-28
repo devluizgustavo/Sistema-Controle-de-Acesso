@@ -1,9 +1,9 @@
-const LoginModel = require('../models/LoginModel.js');
+const UserLoginModel = require('../models/UserLoginModel.js');
 const { dialog } = require('electron');
 
-async function loginController(args) {
+async function UserLoginController(args) {
   try {
-    const login = new LoginModel(args);
+    const login = new UserLoginModel(args);
     await login.initLogin();
 
     let string = 'Confira os campos abaixo:\n';
@@ -19,4 +19,4 @@ async function loginController(args) {
   }
 }
 
-module.exports = loginController;
+module.exports = UserLoginController;
