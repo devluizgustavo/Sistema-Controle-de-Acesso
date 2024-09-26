@@ -32,8 +32,7 @@ class RegPeopleForm {
         return this.errors.forEach((val) => { showError('error-message', val) })
       };
 
-      const isValid = await window.electron.getCadPeople(data);
-      if (!isValid) return this.cleanInputsBefVal();
+      await window.electron.getCadPeople(data);
     } catch (e) {
       console.error('Erro ao tentar a comunicação com o sistema', e);
     }
@@ -95,15 +94,15 @@ class RegPeopleForm {
 
 
 
-  cleanInputsBefVal() {
-    for (let input of document.querySelectorAll('input')) {
-      input.value = "";
-    }
+  // cleanInputsBefVal() {
+  //   for (let input of document.querySelectorAll('input')) {
+  //     input.value = "";
+  //   }
 
-    for (let select of document.querySelectorAll('select')) {
-      select.value = "";
-    };
-  }
+  //   for (let select of document.querySelectorAll('select')) {
+  //     select.value = "";
+  //   };
+  // }
 }
 
 const handlePeopleForm = new RegPeopleForm();

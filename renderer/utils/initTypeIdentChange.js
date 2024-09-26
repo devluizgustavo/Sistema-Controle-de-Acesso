@@ -1,6 +1,6 @@
 // Função para inicializar a troca de campos de input baseados em seleção
 export default async function initTypeIdentificationChange() {
-  document.getElementById('id_type_identific').addEventListener('change', function () {
+  document.getElementById('id_type_identific').addEventListener('change', async function () {
     const cpfField = document.getElementById('cpf_field');
     const rgField = document.getElementById('rg_field');
     const orgField = document.getElementById('org_field');

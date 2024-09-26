@@ -1,21 +1,31 @@
 const { ipcMain, dialog, app } = require('electron');
 
-const { closeSession, openWinRegisterPerson, openWinAccessRelease } = require('./controllers/HomeController.js');
+// Controladores da HOME
+const { closeSession, openWinRegisterPerson, openWinAccessRelease, findRecordsByInput,
+  openWinHistoryAccess } = require('./controllers/HomeController.js');
+
+// Controladores Gerais
 const UserLoginController = require('./controllers/UserLoginController.js');
+const LogHistoryController = require('./controllers/LogHistoryController.js');
 const UserRegisterController = require('./controllers/UserRegisterController.js');
 const AccessHistoryController = require('./controllers/AccessHistoryController.js');
 const PersonRegistrationController = require('./controllers/PersonRegistrationController.js');
 
-const { checkedAuthCode, checkedLoggedIn } = require('./middlewares/globalMiddleware.js');
+// Middlewares
+const { checkedAuthCode } = require('./middlewares/globalMiddleware.js');
 
+// Utilidades 
 const getAssuntos = require('./util/getAssuntos');
 const getAccessInBuildingAccess = require('./util/getAccessInBuildingAccess.js');
 const getRecordsNotInBuildingAccess = require('./util/getRecordsNotInBuildingAccess');
 
 global.user = null;
 global.admin = null;
+global.allAccessInSystem = null;
+global.allLogsByID = null;
 
 let idAccessClick = null;
+let logsByID = null;
 const windowManager = require('../windows.js');
 
 module.exports = function setupIPCHandlers() {
@@ -27,14 +37,14 @@ module.exports = function setupIPCHandlers() {
 
       global.user = loginOn;
 
-      await dialog.showMessageBox(windowManager.mainWindow, {
+      await dialog.showMessageBox(windowManager.loginWindow, {
         type: 'info',
         title: 'Sucesso',
         message: 'Login efetuado\nClique em continuar para acessar o sistema',
         buttons: ['Continuar'],
       });
 
-      windowManager.mainWindow.close();
+      windowManager.loginWindow.close();
       windowManager.createHomeWindow();
 
       return true;
@@ -144,6 +154,20 @@ module.exports = function setupIPCHandlers() {
     idAccessClick = id;
   });
 
+  // Responsável por abrir a janela do histórico de acesso de um usuário específicio
+  ipcMain.on('open-win-history-access', async (event, id) => {
+    event.preventDefault();
+
+    const res = await LogHistoryController(id);
+    if (!res) return;
+
+    await openWinHistoryAccess(id);
+
+    windowManager.homeWindow.webContents.send('allLogsByID', res);
+
+    logsByID = res;
+  });
+
   // Responsável por trazer os dados do usuário atual para o front-end
   ipcMain.handle('get-user', () => {
     return global.user;
@@ -179,6 +203,21 @@ module.exports = function setupIPCHandlers() {
 
     const combinateArray = getAccess.concat(getRecords);
 
+    global.allAccessInSystem = combinateArray;
+
     return combinateArray;
   });
+
+  // Responsável por trazer todos os dados que sejam semelhantes com a pesquisa do usuário
+  ipcMain.handle('find-records-by-search', async (event, args) => {
+    event.preventDefault();
+    const RecordsFound = await findRecordsByInput(args);
+    return RecordsFound;
+  });
+
+  // Responsável por enviar todos os logs do cadastro no sistema
+  ipcMain.handle('send-all-logs', async () => {
+    return logsByID;
+  })
+
 }

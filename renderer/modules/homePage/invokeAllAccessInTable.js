@@ -8,7 +8,6 @@ async function invokeAllAccessInTable() {
     const allAccess = await window.electron.getAllAccess();
     createRowInTable(allAccess)
     initTableRowSelection();
-
   } catch (e) {
     console.error('Erro ao tentar mostrar os dados na pagina principal', e);
   }

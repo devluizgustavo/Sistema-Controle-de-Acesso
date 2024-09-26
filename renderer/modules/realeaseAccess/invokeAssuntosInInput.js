@@ -21,8 +21,6 @@ function removeOptionsInAssunto() {
     // Seleciona todos os elementos <select> dentro do container
     const selectAssuntos = container.querySelectorAll('option');
 
-    
-    
     // Itera sobre os elementos e os remove do DOM
     selectAssuntos.forEach(select => select.remove());
     createElementSelect('Escolha uma opção');

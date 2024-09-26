@@ -14,6 +14,8 @@ export default async function initClickListeners() {
       window.electron.send('back-to-controller');
     } else if (el.classList.contains('btnOpenRealeaseWin')) {
       window.electron.send('open-win-access-realease', global.idAccess);
+    } else if (el.classList.contains('btnOpenHistoryWin')) {
+      window.electron.send('open-win-history-access', global.idAccess);
     }
   });
 }

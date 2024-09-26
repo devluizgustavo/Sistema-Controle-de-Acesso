@@ -1,17 +1,20 @@
 const { dialog } = require('electron');
-const { FindAll } = require('../util/dbRepository.js')
 const { checkedLoggedIn } = require('../middlewares/globalMiddleware.js');
 const windowManager = require('../../windows.js');
+const HomeModel = require('../models/HomeModel');
 
 /*
 
 Funções da HOME FAZER
 
+{
 Sair da sessão ( OK )
 Abrir a Janela de Cadastros de Pessoas ( OK )
 Abrir a Janela de Liberação de Pessoas ( OK )
 Abrir a Janela de Historico de Cadastros ( PENDENTE )
-Manipular a Tabela de Pessoas
+Trazer registros conforme a pesquisa do usuário no INPUT ( OK )
+Manipular a Tabela de Pessoas ( OK )
+}
 
 */
 
@@ -61,12 +64,49 @@ async function openWinAccessRelease(id) {
     windowManager.createReleaseAccessWindow();
     return true;
   } catch (e) {
-    console.error('Erro ao tentar abrir a janela de acesso', e);
+    console.error('Erro ao tentar abrir a janela de acesso:', e);
   }
+}
+
+async function openWinHistoryAccess(id) {
+  try {
+    const isLogged = await checkedLoggedIn();
+    if (isLogged) return;
+
+    if (!id) {
+      dialog.showMessageBox(windowManager.homeWindow, {
+        type: 'warning',
+        title: 'Atenção',
+        message: 'Nenhum acesso foi selecionado'
+      });
+      return false;
+    }
+
+    windowManager.createAccessHistoryLogWindow();
+  } catch (e) {
+    console.error('Erro ao tentar abrir a janela de histórico de acesso:', e);
+  }
+
+}
+
+async function findRecordsByInput(args) {
+  try {
+    const findRecords = new HomeModel(args);
+    const records = await findRecords.initSearch();
+
+    if (!records) return false;
+
+    return findRecords.recordsFoundByID;
+  } catch (e) {
+    console.error('Erro ao tentar encontrar os registros:', e);
+  }
+
 }
 
 module.exports = {
   closeSession,
   openWinRegisterPerson,
-  openWinAccessRelease
+  openWinAccessRelease,
+  findRecordsByInput,
+  openWinHistoryAccess
 }

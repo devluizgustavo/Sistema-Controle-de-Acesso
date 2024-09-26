@@ -1,11 +1,12 @@
 import createMaskCPF, { createMaskRG } from '../../utils/createMask.js';
+import initTableRowSelection from './initTableRowSelection.js';
 
 //Função para invocar os nomes na tabela
 export default function createRowInTable(data) {
   const tableBody = document.querySelector('#access-table tbody');
 
-  tableBody.innerHTML = "";
-
+  if (tableBody) tableBody.innerHTML = ""
+  
   data.forEach(val => {
     const row = document.createElement('tr');
     row.setAttribute('id', 'rowTable');
@@ -59,6 +60,7 @@ export default function createRowInTable(data) {
     }
 
     tableBody.appendChild(row);
+    initTableRowSelection();
   })
 }
 

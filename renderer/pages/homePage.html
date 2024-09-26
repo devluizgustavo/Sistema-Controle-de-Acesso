@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>App Controle</title>
-  <link rel="stylesheet" href="../styles/controllerPage.css">
+  <link rel="stylesheet" href="../styles/homePage.css">
 </head>
 
 <body>
@@ -46,8 +46,9 @@
           <div class="label">
             Procurar
           </div>
-          <input type="text" name="search" id="user" class="form-input" placeholder="Digite o RG/CPF ou Nome Completo">
-          <button type="submit" class="btnSearch" id="Search">Buscar</button>
+          <input type="text" name="search" id="search" class="form-input"
+            placeholder="Digite o RG/CPF ou Nome Completo">
+          <button type="submit" class="btnSearch" id="SearchBtn">Buscar</button>
         </div>
       </form>
 
@@ -93,11 +94,13 @@
         </table>
       </div>
 
+      <div id="text-error-table"></div>
+
       <div class="div-btns-footer">
         <img class="img-edit" src="../../assets/img/icons/pageController/edit-btn.png">
         <button class="btn-group white">Editar Dados</button>
         <img class="img-cadeado" src="../../assets/img/icons/pageController/registers-btn.png">
-        <button class="btn-group white">Acessar Histórico</button>
+        <button class="btn-group white btnOpenHistoryWin">Acessar Histórico</button>
         <img class="img-cadeado" src="../../assets/img/icons/pageController/realese-access-btn.png">
         <button class="btn-group yellow btnOpenRealeaseWin">Liberar Acesso</button>
       </div>

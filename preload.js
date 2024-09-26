@@ -12,6 +12,8 @@ contextBridge.exposeInMainWorld('electron', {
   getAssuntoDepto: (arg) => ipcRenderer.invoke('get-assunto-depto', arg),
   setAccessHistorico: (arg) => ipcRenderer.invoke('set-historico-access', arg),
   getAllAccess: () => ipcRenderer.invoke('get-all-access'),
+  getAllLogsByID: () => ipcRenderer.invoke('send-all-logs'),
+  findRecordsBySearchInput: (arg) => ipcRenderer.invoke('find-records-by-search', arg), 
 });
 
 

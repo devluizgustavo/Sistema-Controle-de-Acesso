@@ -3,11 +3,13 @@ import initClickListeners from './utils/initClickListeners.js';
 import initFormListeners from './utils/initFormListeners.js';
 import initInputListeners from './utils/initInputListeners.js';
 import initInputMasks from './utils/initInputMasks.js';
+import funcInitInput from './modules/homePage/InputSearchPeoples.js';
 import invokeAssuntosInInput from './modules/realeaseAccess/invokeAssuntosInInput.js'
 import invokeAllAccessInTable from './modules/homePage/invokeAllAccessInTable';
 import initTypeIdentChange from './utils/initTypeIdentChange.js';
 import showNameUser from './utils/showNameUser.js';
 import getAccessByClickInRow from './modules/homePage/getAccessByClickInRow.js';
+import invokeLogsByID from './modules/historyAccess/invokeLogsByID.js'
 
 // Função principal de inicialização
 async function init() {
@@ -17,13 +19,16 @@ async function init() {
   window.electron.on('updateTable', async () => {
     await invokeAllAccessInTable();
   });
+
   // Executa funções que podem rodar em paralelo
   await Promise.all([
-    initFormListeners(),
-    showNameUser(),
-    initClickListeners(),
+    invokeLogsByID(),
     invokeAssuntosInInput(),
     initTypeIdentChange(),
+    initFormListeners(),
+    funcInitInput(),
+    initClickListeners(),
+    showNameUser(),
     initInputMasks(),
     getAccessByClickInRow(),
     invokeAllAccessInTable(),

@@ -3,12 +3,13 @@ const path = require('path');
 
 class WindowManager {
   constructor() {
-    this.mainWindow = null;
+    this.loginWindow = null;
     this.authWindow = null;
     this.registerWindow = null;
     this.homeWindow = null;
     this.releaseAccessWindow = null;
     this.registerPeopleWindow = null;
+    this.accessHistoryLogWindow = null;
   }
 
   createWindow(options) {
@@ -23,6 +24,7 @@ class WindowManager {
     });
 
     window.once('ready-to-show', () => window.show());
+    // window.webContents.openDevTools(true);
     window.setMenuBarVisibility(false);
 
     return window;
@@ -34,7 +36,7 @@ class WindowManager {
       height: 350,
       title: 'Alerta',
       icon: path.join(__dirname, 'assets', 'img', 'other', 'warning.png'),
-      parent: this.mainWindow,
+      parent: this.loginWindow,
       show: false,
       center: true,
       resizable: true,
@@ -44,22 +46,24 @@ class WindowManager {
   }
 
   createLoginWindow() {
-    this.mainWindow = this.createWindow({
+    this.loginWindow = this.createWindow({
       height: 1920,
       width: 1080,
+      title: 'Login',
       icon: path.join(__dirname, 'assets', 'img', 'icons', 'iconApp', '512x512.png'),
     });
 
-    this.mainWindow.maximize();
+    this.loginWindow.maximize();
     // this.mainWindow.webContents.openDevTools(true);
-    this.mainWindow.loadFile(path.join(__dirname, 'renderer', 'pages', 'loginPage.html'));
+    this.loginWindow.loadFile(path.join(__dirname, 'renderer', 'pages', 'loginPage.html'));
   }
 
   createRegisterWindow() {
     this.registerWindow = this.createWindow({
       width: 1920,
       height: 1080,
-      title: 'Alerta',
+      parent: this.loginWindow,
+      title: 'Cadastro',
       show: false,
       center: true,
       resizable: true,
@@ -79,7 +83,7 @@ class WindowManager {
     });
 
     this.homeWindow.maximize();
-    this.homeWindow.webContents.openDevTools(true);
+    // this.homeWindow.webContents.openDevTools(true);
     this.homeWindow.loadFile(path.join(__dirname, 'renderer', 'pages', 'homePage.html'));
   }
 
@@ -89,15 +93,14 @@ class WindowManager {
       height: 720,
       title: 'App Controle',
       modal: true,
-      frame: false,
       transparent: true,
-      parent: this.controllerWindow,
+      parent: this.homeWindow,
       show: false,
       center: true,
       resizable: false,
     });
 
-    this.registerPeopleWindow.webContents.openDevTools(true);
+    // this.registerPeopleWindow.webContents.openDevTools(true);
     this.registerPeopleWindow.loadFile(path.join(__dirname, 'renderer', 'pages', 'registerPeoplePage.html'));
   }
 
@@ -107,9 +110,8 @@ class WindowManager {
       height: 720,
       title: 'App Controle',
       modal: true,
-      frame: false,
       transparent: true,
-      parent: this.controllerWindow,
+      parent: this.homeWindow,
       show: false,
       center: true,
       resizable: false,
@@ -118,6 +120,24 @@ class WindowManager {
     // this.releaseAccessWindow.webContents.openDevTools(true);
     this.releaseAccessWindow.loadFile(path.join(__dirname, 'renderer', 'pages', 'realeseAccessPage.html'));
   }
+
+  createAccessHistoryLogWindow() {
+    this.accessHistoryLogWindow = this.createWindow({
+      width: 1280,
+      height: 720,
+      title: 'Histórico',
+      modal: true,
+      transparent: true,
+      parent: this.homeWindow,
+      show: false,
+      center: true,
+      resizable: false,
+    });
+
+    this.accessHistoryLogWindow.webContents.openDevTools(true);
+    this.accessHistoryLogWindow.loadFile(path.join(__dirname, 'renderer', 'pages', 'historyAccessPage.html'));
+  }
+
 }
 
 module.exports = new WindowManager();
