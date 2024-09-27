@@ -106,7 +106,7 @@ class WindowManager {
 
   createReleaseAccessWindow() {
     this.releaseAccessWindow = this.createWindow({
-      width: 1100,
+      width: 1200,
       height: 720,
       title: 'App Controle',
       modal: true,

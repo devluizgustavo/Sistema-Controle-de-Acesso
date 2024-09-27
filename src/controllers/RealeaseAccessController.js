@@ -1,12 +1,12 @@
 const { dialog } = require('electron');
-const AccessModel = require('../models/AccessHistoryModel.js');
+const RealeaseAccessModel = require('../models/RealeaseAccessModel.js');
 const windowManager = require('../../windows.js');
 
-async function accessHistoryController(deptoAndAssunto, idRecord) {
+async function RealeaseAccessController(deptoAndAssunto, idRecord) {
   try {
     if (!deptoAndAssunto || !idRecord) return;
 
-    const getAccess = new AccessModel(deptoAndAssunto, idRecord);
+    const getAccess = new RealeaseAccessModel(deptoAndAssunto, idRecord);
     await getAccess.initAccess();
 
     let string = 'Confira os campos abaixo:\n';
@@ -32,4 +32,4 @@ async function accessHistoryController(deptoAndAssunto, idRecord) {
   }
 }
 
-module.exports = accessHistoryController;
+module.exports = RealeaseAccessController;

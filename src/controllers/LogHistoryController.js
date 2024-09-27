@@ -9,7 +9,6 @@ async function LogHistoryController(id) {
 
     const LogUser = new LogHistoryModel(id);
     await LogUser.initLog();
-
     let string = 'Confira os campos abaixo:\n\n';
     LogUser.errors.forEach(val => string += val);
 

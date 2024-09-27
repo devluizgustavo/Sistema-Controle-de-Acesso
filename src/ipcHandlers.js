@@ -8,7 +8,7 @@ const { closeSession, openWinRegisterPerson, openWinAccessRelease, findRecordsBy
 const UserLoginController = require('./controllers/UserLoginController.js');
 const LogHistoryController = require('./controllers/LogHistoryController.js');
 const UserRegisterController = require('./controllers/UserRegisterController.js');
-const AccessHistoryController = require('./controllers/AccessHistoryController.js');
+const RealeaseAccessController = require('./controllers/RealeaseAccessController.js');
 const PersonRegistrationController = require('./controllers/PersonRegistrationController.js');
 
 // Middlewares
@@ -190,7 +190,7 @@ module.exports = function setupIPCHandlers() {
   ipcMain.handle('set-historico-access', async (event, deptoAndAssunto) => {
     event.preventDefault();
     if (!deptoAndAssunto) return false;
-    const setAccess = await AccessHistoryController(deptoAndAssunto, idAccessClick);
+    const setAccess = await RealeaseAccessController(deptoAndAssunto, idAccessClick);
     if (!setAccess) return false;
 
     return true;

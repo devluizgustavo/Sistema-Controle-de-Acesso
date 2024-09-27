@@ -1,7 +1,7 @@
 const { FindOne, Create } = require('../util/dbRepository.js')
 const { removeMask } = require('../util/treatData');
 
-class AccessHistoryModel {
+class RealeaseAccessModel {
   constructor(deptoAndAssunto, idRecord) {
     this.idRecord = idRecord
     this.assunto = deptoAndAssunto.assunto;
@@ -65,4 +65,4 @@ class AccessHistoryModel {
   }
 }
 
-module.exports = AccessHistoryModel;
+module.exports = RealeaseAccessModel;

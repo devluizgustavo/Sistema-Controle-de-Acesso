@@ -29,6 +29,7 @@ async function closeSession() {
     }).then((val) => {
       if (val.response === 1) {
         global.user = null;
+        console.log(global.user);
         windowManager.homeWindow.close();
         windowManager.createLoginWindow();
       }
