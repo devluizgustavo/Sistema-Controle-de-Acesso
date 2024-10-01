@@ -1,4 +1,3 @@
-const { dialog } = require('electron');
 const db_connection = require('../database/connection.js');
 
 async function FindAll(sql, params = []) {

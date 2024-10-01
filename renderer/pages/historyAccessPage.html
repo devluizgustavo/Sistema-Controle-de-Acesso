@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cadastrar</title>
+  <title>Histórico de Acesso</title>
   <link rel="stylesheet" href="../styles/historyAccessPage.css">
 </head>
 
@@ -13,14 +13,19 @@
 
 
   <div class="container">
-    <header class="text">
+    <header>
       <h1>Histórico de Acesso</h1>
-      <div>
+      <div class="info">
         <img class="img-logo" src="../../assets/img/icons/pageHistory/user-logo.png" alt="logo-user">
+
+        <p class="ident">Nome Completo: <b class="name">Mauro Batista Conti Valentim</b><br>
+          Identificador: <b class="id">0445</b><br>
+        </p>
       </div>
-      <p class="ident">Identificador: <b class="id">0445</b><br>
-        Nome Completo: <b class="name">Mauro Batista Conti Valentim</b><br>
-      </p>
+
+      <div class="text">
+        <p>Quantidade de Acessos: <b><span class="countAccess"></span></b></p>
+      </div>
     </header>
     <!-- Inicio Container -->
     <form>
@@ -39,10 +44,6 @@
           <tbody>
           </tbody>
         </table>
-      </div>
-
-      <div class="text">
-        <p>Já acessou o prédio: <b><span class="countAccess"></span></b></p>
       </div>
 
 </body>

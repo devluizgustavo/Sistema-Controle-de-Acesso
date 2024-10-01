@@ -46,7 +46,6 @@ h1 {
   text-align: center;
   font-size: 30px;
   font-weight: 300;
-  margin-bottom: 42px;
 }
 
 
@@ -65,7 +64,9 @@ h1 {
 }
 
 .text {
-  text-align: left;
+  display: flex;
+  margin-top: -135px;
+  margin-left: 950px;
   font-size: var(--font-size-large);
 }
 
@@ -78,10 +79,9 @@ h1 {
 #access-table-history {
   width: 100%;
   border-collapse: collapse;
-  margin: 0;
+  margin-top: 50px;
   font-size: 16px;
   text-align: center;
-  margin: auto;
 }
 
 
@@ -117,43 +117,18 @@ h1 {
 .img-logo {
   display: inline-block;
   opacity: 60%;
-  height: 120px;
-  margin: 0px 550px;
+  height: 75px;
+  margin: 50px 40px;
+  padding: 0;
 }
 
-.img-back {
-  position: fixed;
-  height: 55px;
-  cursor: pointer;
-  filter: grayscale(100%);
-  margin: -280px 50px;
+.info {
+  display: flex;
 }
 
-.img-back:hover {
-  filter: grayscale(95%);
-  transition: ease-in-out 500ms;
-}
-
-.img-back:active {
-  filter: grayscale(90%);
-  transition: ease-in-out 110ms;
-  padding-right: 10px;
-}
-
-/* Adicione media queries para responsividade */
-@media (max-width: 768px) {
-  .column {
-    width: 100%;
-    height: auto;
-    margin-bottom: 2em;
-  }
-
-  .container {
-    width: 90%;
-    margin: 3em auto;
-  }
-
-  .btnRegister {
-    width: 100%;
-  }
+.ident {
+  display: inline-block;
+  text-align: left;
+  margin-top: 75px;
+  margin-bottom: 85px;
 }

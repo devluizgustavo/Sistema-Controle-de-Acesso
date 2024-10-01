@@ -1,6 +1,7 @@
 const { dialog } = require('electron');
 const RealeaseAccessModel = require('../models/RealeaseAccessModel.js');
 const windowManager = require('../../windows.js');
+const { dateNowFormated, hoursNowFormated } = require('../util/dateAndHoursFormated.js');
 
 async function RealeaseAccessController(deptoAndAssunto, idRecord) {
   try {
@@ -19,7 +20,9 @@ async function RealeaseAccessController(deptoAndAssunto, idRecord) {
     await dialog.showMessageBox(windowManager.releaseAccessWindow, {
       type: 'info',
       title: 'Atenção',
-      message: `Acesso Concedido`,
+      message: `      Acesso Concedido\n
+      Data da Liberação: ${dateNowFormated()}
+      Horário: ${hoursNowFormated()}`,
     });
 
     windowManager.releaseAccessWindow.close();

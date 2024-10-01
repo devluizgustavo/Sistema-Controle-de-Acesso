@@ -157,26 +157,17 @@ function _ref() {
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
-          _context.prev = 0;
-          elCount = document.querySelector('.countAccess');
-          if (!(log.length === 1)) {
-            _context.next = 4;
-            break;
+          try {
+            elCount = document.querySelector('.countAccess');
+            elCount.innerHTML = "".concat(log.length);
+          } catch (e) {
+            console.error('Erro ao tentar mostrar a quantidade de acessos: ', e);
           }
-          return _context.abrupt("return", elCount.innerHTML = "".concat(log.length, " vez"));
-        case 4:
-          elCount.innerHTML = "".concat(log.length, " vezes");
-          _context.next = 10;
-          break;
-        case 7:
-          _context.prev = 7;
-          _context.t0 = _context["catch"](0);
-          console.error('Erro ao tentar mostrar a quantidade de acessos: ', _context.t0);
-        case 10:
+        case 1:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 7]]);
+    }, _callee);
   }));
   return _ref.apply(this, arguments);
 }

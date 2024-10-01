@@ -57,7 +57,7 @@ async function openWinAccessRelease(id) {
       dialog.showMessageBox(windowManager.homeWindow, {
         type: 'warning',
         title: 'Atenção',
-        message: 'Nenhum acesso foi selecionado'
+        message: 'Nenhum registro foi selecionado'
       });
       return false;
     }
@@ -73,16 +73,7 @@ async function openWinHistoryAccess(id) {
   try {
     const isLogged = await checkedLoggedIn();
     if (isLogged) return;
-
-    if (!id) {
-      dialog.showMessageBox(windowManager.homeWindow, {
-        type: 'warning',
-        title: 'Atenção',
-        message: 'Nenhum acesso foi selecionado'
-      });
-      return false;
-    }
-
+    
     windowManager.createAccessHistoryLogWindow();
   } catch (e) {
     console.error('Erro ao tentar abrir a janela de histórico de acesso:', e);

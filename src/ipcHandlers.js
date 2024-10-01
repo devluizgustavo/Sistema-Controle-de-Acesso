@@ -158,6 +158,14 @@ module.exports = function setupIPCHandlers() {
   ipcMain.on('open-win-history-access', async (event, id) => {
     event.preventDefault();
 
+    if (!id) {
+      return dialog.showMessageBox(windowManager.homeWindow, {
+        type: 'warning',
+        title: 'Atenção',
+        message: 'Nenhum registro foi selecionado'
+      });
+    }
+
     const res = await LogHistoryController(id);
     if (!res) return;
 

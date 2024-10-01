@@ -1,12 +1,9 @@
 
 const { dialog } = require('electron');
 const LogHistoryModel = require('../models/LogHistoryModel.js');
-const windowManager = require('../../windows.js');
 
 async function LogHistoryController(id) {
   try {
-    if (!id) return false;
-
     const LogUser = new LogHistoryModel(id);
     await LogUser.initLog();
     let string = 'Confira os campos abaixo:\n\n';

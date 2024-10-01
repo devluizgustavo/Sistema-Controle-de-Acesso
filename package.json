@@ -7,9 +7,9 @@
     "start": "electron .",
     "dev": "webpack -w"
   },
-  "icon": "frontend/assets/img/icons/512x512.png",
+  "icon": "assets/img/icons/iconApp/512x512.png",
   "keywords": [],
-  "author": "",
+  "author": "@devluizgustavobonke",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.21.4",

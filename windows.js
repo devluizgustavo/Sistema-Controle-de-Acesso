@@ -10,6 +10,7 @@ class WindowManager {
     this.releaseAccessWindow = null;
     this.registerPeopleWindow = null;
     this.accessHistoryLogWindow = null;
+    this.dataEditWindow = null;
   }
 
   createWindow(options) {
@@ -28,6 +29,23 @@ class WindowManager {
     window.setMenuBarVisibility(false);
 
     return window;
+  }
+
+  createEditDataWindow() {
+    this.dataEditWindow = this.createWindow({
+      width: 1920,
+      height: 1080,
+      title: 'Editar Dados',
+      modal: true,
+      transparent: true,
+      parent: this.homeWindow,
+      show: false,
+      center: true,
+      resizable: false,
+    });
+
+    this.dataEditWindow.webContents.openDevTools(true);
+    this.dataEditWindow.loadFile(path.join(__dirname, 'renderer', 'pages', 'editDataPage.html'));
   }
 
   createAuthPromptWindow() {
@@ -89,7 +107,7 @@ class WindowManager {
 
   createRegisterPeopleWindow() {
     this.registerPeopleWindow = this.createWindow({
-      width: 1280,
+      width: 1450,
       height: 720,
       title: 'App Controle',
       modal: true,
@@ -134,7 +152,7 @@ class WindowManager {
       resizable: false,
     });
 
-    this.accessHistoryLogWindow.webContents.openDevTools(true);
+    // this.accessHistoryLogWindow.webContents.openDevTools(true);
     this.accessHistoryLogWindow.loadFile(path.join(__dirname, 'renderer', 'pages', 'historyAccessPage.html'));
   }
 

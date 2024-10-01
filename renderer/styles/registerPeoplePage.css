@@ -31,7 +31,7 @@ body {
   color: var(--text-color);
   text-align: center;
   width: 34%;
-  height: 38.5em;
+  height: 37.8em;
   padding: 3%;
   box-shadow: var(--box-shadow);
   display: inline-block;
@@ -41,7 +41,7 @@ body {
   width: 50%;
   display: inline-block;
   vertical-align: top;
-  margin: 75px 0px 0px 70px;
+  margin: 75px 0px 0px 120px;
   justify-content: center;
 }
 
