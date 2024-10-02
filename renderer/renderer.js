@@ -9,7 +9,8 @@ import invokeAllAccessInTable from './modules/homePage/invokeAllAccessInTable';
 import initTypeIdentChange from './utils/initTypeIdentChange.js';
 import showNameUser from './utils/showNameUser.js';
 import getAccessByClickInRow from './modules/homePage/getAccessByClickInRow.js';
-import dataInvokerInHistory from './modules/historyAccess/dataInvokerInHistory'
+import dataInvokerInHistory from './modules/historyAccess/dataInvokerInHistory';
+import dataInvokerInEditWin from './modules/editData/dataInvokerInEditWin.js';
 
 // Função principal de inicialização
 async function init() {
@@ -22,6 +23,7 @@ async function init() {
 
   // Executa funções que podem rodar em paralelo
   await Promise.all([
+    dataInvokerInEditWin(),
     dataInvokerInHistory(),
     invokeAssuntosInInput(),
     initTypeIdentChange(),

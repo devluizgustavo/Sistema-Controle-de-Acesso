@@ -5,7 +5,7 @@ contextBridge.exposeInMainWorld('electron', {
   on: (channel, callback) => ipcRenderer.on(channel, (event, ...args) => callback(...args)),
   getAuth: (arg) => ipcRenderer.invoke('auth-required', arg),
   getLogin: (arg) => ipcRenderer.invoke('form-login', arg),
-  getRegister: (arg) => ipcRenderer.invoke('form-register', arg), 
+  getRegister: (arg) => ipcRenderer.invoke('form-register', arg),
   getUser: () => ipcRenderer.invoke('get-user'),
   getCadPeople: (arg) => ipcRenderer.invoke('form-cad-peoples', arg),
   getAllRegisters: () => ipcRenderer.invoke('get-registers-peoples'),
@@ -13,7 +13,8 @@ contextBridge.exposeInMainWorld('electron', {
   setAccessHistorico: (arg) => ipcRenderer.invoke('set-historico-access', arg),
   getAllAccess: () => ipcRenderer.invoke('get-all-access'),
   getAllLogsByID: () => ipcRenderer.invoke('send-all-logs'),
-  findRecordsBySearchInput: (arg) => ipcRenderer.invoke('find-records-by-search', arg), 
+  findRecordsBySearchInput: (arg) => ipcRenderer.invoke('find-records-by-search', arg),
+  getOneData: () => ipcRenderer.invoke('get-data-by-id'),
 });
 
 

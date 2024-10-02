@@ -25,7 +25,7 @@ class WindowManager {
     });
 
     window.once('ready-to-show', () => window.show());
-    // window.webContents.openDevTools(true);
+    window.webContents.openDevTools(true);
     window.setMenuBarVisibility(false);
 
     return window;

@@ -7,6 +7,7 @@ const { closeSession, openWinRegisterPerson, openWinAccessRelease, findRecordsBy
 // Controladores Gerais
 const UserLoginController = require('./controllers/UserLoginController.js');
 const LogHistoryController = require('./controllers/LogHistoryController.js');
+const EditDataWinController = require('./controllers/EditDataWinController.js');
 const UserRegisterController = require('./controllers/UserRegisterController.js');
 const RealeaseAccessController = require('./controllers/RealeaseAccessController.js');
 const PersonRegistrationController = require('./controllers/PersonRegistrationController.js');
@@ -26,6 +27,7 @@ global.allLogsByID = null;
 
 let idAccessClick = null;
 let logsByID = null;
+let dataByID = null;
 const windowManager = require('../windows.js');
 
 module.exports = function setupIPCHandlers() {
@@ -175,6 +177,27 @@ module.exports = function setupIPCHandlers() {
 
     logsByID = res;
   });
+
+  // Responsável por abrir a janela de Edição de Dados do Cadastro
+  ipcMain.on('open-win-edit-data', async (event, id) => {
+    event.preventDefault()
+    if (!id) return dialog.showMessageBox(windowManager.dataEditWindow, {
+      type: 'warning',
+      title: 'Atenção',
+      message: 'Nenhum registro foi selecionado'
+    });
+
+    const res = await EditDataWinController(id);
+
+    windowManager.createEditDataWindow();
+
+    dataByID = res;
+  });
+
+  // Responsável por enviar os dados do registro selecionado para a Página de Edição de Dados
+  ipcMain.handle('get-data-by-id', async () => {
+    return dataByID;
+  })
 
   // Responsável por trazer os dados do usuário atual para o front-end
   ipcMain.handle('get-user', () => {
