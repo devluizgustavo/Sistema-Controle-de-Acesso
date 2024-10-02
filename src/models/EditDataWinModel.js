@@ -26,7 +26,7 @@ class EditDataWinModel {
 
   async registerExists() {
     try {
-      sql = 'SELECT cad_name, cad_lastname, cad_dt_nasc, cad_rg, cad_cpf, cad_tel, cad_email FROM Cadastro WHERE cad_id = (?)';
+      sql = 'SELECT cad_id, cad_name, cad_lastname, cad_dt_nasc, cad_rg, cad_cpf, cad_tel, cad_email FROM Cadastro WHERE cad_id = (?)';
       const row = await FindOne(sql, [this.id]);
       return row;
     } catch (e) {

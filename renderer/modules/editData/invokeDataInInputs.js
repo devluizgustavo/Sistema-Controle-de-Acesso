@@ -1,9 +1,7 @@
 import showMaskCPF, { showMaskRG } from '../../utils/showMask.js';
 
 export default async function invokeDataInInputs(cad) {
-  const inputs = document.querySelector('#formEditData');
-
-  inputs.querySelectorAll('input').forEach(input => {
+  document.querySelectorAll('input').forEach(input => {
     switch (input.id) {
       case 'firstname':
         input.value = cad.cad_name;

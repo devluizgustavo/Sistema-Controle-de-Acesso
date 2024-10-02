@@ -143,10 +143,15 @@ module.exports = function setupIPCHandlers() {
     await closeSession();
   });
 
-  // Responsável por voltar para a página de controle de acesso
+  // Responsável por voltar da pagina de cadastro de pessoas para a página de controle de acesso
   ipcMain.on('back-to-controller', () => {
     windowManager.registerPeopleWindow.close();
   });
+
+  // Responsável por voltar da pagina de edição de dados para a página de controle de acesso
+  ipcMain.on('close-edit-data-win', () => {
+    windowManager.dataEditWindow.close();
+  })
 
   //Responsável por abrir a janela de liberação de acesso
   ipcMain.on('open-win-access-realease', async (event, id) => {

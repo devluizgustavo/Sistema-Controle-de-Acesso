@@ -18,6 +18,8 @@ export default async function initClickListeners() {
       window.electron.send('open-win-history-access', global.idAccess);
     } else if (el.classList.contains('btnOpenEditDataWin')) {
       window.electron.send('open-win-edit-data', global.idAccess);
+    } else if (el.classList.contains('img-seta')) {
+      window.electron.send('close-edit-data-win');
     }
   });
 }
