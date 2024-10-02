@@ -40,7 +40,7 @@ header {
   display: flex;
 }
 
-img {
+.img-logo {
   display: inline-block;
   height: 120px;
   margin-right: 50px;
@@ -166,4 +166,27 @@ hr {
 .red:hover {
   background: #da2d2d;
   transition: ease-in-out 500ms;
+}
+
+.img-seta {
+  transform: scaleX(-1);
+  height: 75px;
+  filter: grayscale(100%);
+  opacity: 50%;
+  cursor: pointer;
+}
+
+.img-seta:hover {
+  opacity: 75%;
+  transition: all 500ms;
+}
+
+.img-seta:active {
+  opacity: 100%;
+  transition: all 150ms;
+}
+
+.div-seta {
+  margin-left: -270px;
+  margin-right: 210px;
 }

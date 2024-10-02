@@ -3,7 +3,6 @@ import invokeDataInInputs from "./invokeDataInInputs";
 export default async function dataInvokerInEditWin() {
   try {
     const dataByID = await window.electron.getOneData();
-    console.log(dataByID)
 
     await invokeDataInInputs(dataByID);
   } catch (e) {

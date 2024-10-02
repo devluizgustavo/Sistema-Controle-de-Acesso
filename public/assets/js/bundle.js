@@ -104,21 +104,20 @@ function _dataInvokerInEditWin() {
           return window.electron.getOneData();
         case 3:
           dataByID = _context.sent;
-          console.log(dataByID);
-          _context.next = 7;
+          _context.next = 6;
           return (0,_invokeDataInInputs__WEBPACK_IMPORTED_MODULE_0__["default"])(dataByID);
-        case 7:
-          _context.next = 12;
+        case 6:
+          _context.next = 11;
           break;
-        case 9:
-          _context.prev = 9;
+        case 8:
+          _context.prev = 8;
           _context.t0 = _context["catch"](0);
           console.error('Erro ao tentar trazer os dados do registro:', _context.t0);
-        case 12:
+        case 11:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 9]]);
+    }, _callee, null, [[0, 8]]);
   }));
   return _dataInvokerInEditWin.apply(this, arguments);
 }
