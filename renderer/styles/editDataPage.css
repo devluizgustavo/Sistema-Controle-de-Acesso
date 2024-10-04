@@ -30,13 +30,13 @@ body {
 }
 
 .container {
-  margin: 50px auto;
-  width: 75em;
+  margin: 15px auto;
+  width: 95em;
 }
 
 header {
   text-align: left;
-  margin: 130px 0px;
+  margin: 90px 0px;
   display: flex;
 }
 
@@ -68,7 +68,7 @@ hr {
 
 .form-group {
   display: inline-block;
-  margin: 12px 50px -15px 15px;
+  margin: 0px 50px -15px 15px;
 }
 
 .form-input {
@@ -89,7 +89,7 @@ hr {
 
 .label {
   font-size: var(--font-size-small);
-  margin: -10px 0;
+  margin: 5px 0 -15px;
   text-align: left;
   width: auto;
   padding-right: 1%;
@@ -123,7 +123,8 @@ hr {
 }
 
 .div-btns-footer {
-  margin: 0px 360px;
+  margin: 0px 195px;
+
 
 }
 
@@ -189,4 +190,13 @@ hr {
 .div-seta {
   margin-left: -270px;
   margin-right: 210px;
+}
+
+.error-message {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  color: #c02020;
+  text-align: center;
+  font-weight: 700;
 }

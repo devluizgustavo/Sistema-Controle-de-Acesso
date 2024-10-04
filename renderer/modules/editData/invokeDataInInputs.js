@@ -12,8 +12,11 @@ export default async function invokeDataInInputs(cad) {
       case 'dtnasc':
         input.value = cad.cad_dt_nasc;
         break;
-      case 'cpfOrRG':
-        !cad.cad_rg ? input.value = showMaskCPF(cad.cad_cpf) : input.value = showMaskRG(cad.cad_rg);
+      case 'cpf':
+        !cad.cad_cpf ? input.value = 'Não Cadastrado' : input.value = showMaskCPF(cad.cad_cpf);
+        break;
+      case 'rg':
+        !cad.cad_rg ? input.value = 'Não Cadastrado' : input.value = showMaskRG(cad.cad_rg);
         break;
       case 'phone':
         !cad.cad_tel ? input.value = 'Não Cadastrado' : input.value = cad.cad_tel;

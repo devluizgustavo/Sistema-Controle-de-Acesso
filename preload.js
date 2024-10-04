@@ -15,6 +15,7 @@ contextBridge.exposeInMainWorld('electron', {
   getAllLogsByID: () => ipcRenderer.invoke('send-all-logs'),
   findRecordsBySearchInput: (arg) => ipcRenderer.invoke('find-records-by-search', arg),
   getOneData: () => ipcRenderer.invoke('get-data-by-id'),
+  updatedDataByEditWin: (arg) => ipcRenderer.invoke('updated-data-by-id', arg),
 });
 
 

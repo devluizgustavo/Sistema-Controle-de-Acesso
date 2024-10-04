@@ -12,6 +12,7 @@ import getAccessByClickInRow from './modules/homePage/getAccessByClickInRow.js';
 import dataInvokerInHistory from './modules/historyAccess/dataInvokerInHistory';
 import dataInvokerInEditWin from './modules/editData/dataInvokerInEditWin.js';
 import activateInputOnClick from './modules/editData/activateInputOnClick.js'
+import sendUpdatedDataInEditWin from './modules/editData/sendUpdatedDataInEditWin.js';
 
 // Função principal de inicialização
 async function init() {
@@ -24,6 +25,7 @@ async function init() {
 
   // Executa funções que podem rodar em paralelo
   await Promise.all([
+    sendUpdatedDataInEditWin(),
     activateInputOnClick(),
     dataInvokerInEditWin(),
     dataInvokerInHistory(),

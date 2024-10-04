@@ -11,7 +11,7 @@
 
 <body>
 
-  <div class="container">
+  <div class="container" id="editPage">
     <header>
 
       <div class="div-seta">
@@ -34,7 +34,7 @@
     <!-- Inicio Container -->
     <div class="form-group">
       <div class="label">Nome</div>
-      <input type="text" name="firstname" id="firstname" class="form-input inputOff" disabled="" value="">
+      <input type="text" name="firstname" id="firstname" class="form-input inputOff" disabled="">
       <button class="btn-edit" id="btnEditName">
         <img src="../../assets/img/icons/pageEditData/lapis-vetor.png" alt="lapis" class="img-lapis">
       </button>
@@ -42,7 +42,7 @@
 
     <div class="form-group">
       <div class="label">Sobrenome</div>
-      <input type="text" name="lastname" id="lastname" class="form-input inputOff" disabled="" value="">
+      <input type="text" name="lastname" id="lastname" class="form-input inputOff" disabled="">
       <button class="btn-edit" id="btnEditLsname">
         <img src="../../assets/img/icons/pageEditData/lapis-vetor.png" alt="lapis" class="img-lapis">
       </button>
@@ -50,15 +50,23 @@
 
     <div class="form-group">
       <div class="label">Data de Nascimento</div>
-      <input type="date" name="dtnasc" id="dtnasc" class="form-input inputOff" disabled="" value="">
+      <input type="date" name="dtnasc" id="dtnasc" class="form-input inputOff" disabled="">
       <button class="btn-edit" id="btnEditDtNasc">
         <img src="../../assets/img/icons/pageEditData/lapis-vetor.png" alt="lapis" class="img-lapis">
       </button>
     </div>
 
     <div class="form-group">
-      <div class="label">CPF/RG</div>
-      <input type="text" name="cpfOrRG" id="cpfOrRG" class="form-input inputOff" disabled="" value="">
+      <div class="label">CPF</div>
+      <input type="text" name="cpf" id="cpf" class="form-input inputOff" disabled="">
+      <button class="btn-edit" id="btnEditCpfOrRG">
+        <img src="../../assets/img/icons/pageEditData/lapis-vetor.png" alt="lapis" class="img-lapis">
+      </button>
+    </div>
+
+    <div class="form-group">
+      <div class="label">RG</div>
+      <input type="text" name="rg" id="rg" class="form-input inputOff" disabled="">
       <button class="btn-edit" id="btnEditCpfOrRG">
         <img src="../../assets/img/icons/pageEditData/lapis-vetor.png" alt="lapis" class="img-lapis">
       </button>
@@ -66,7 +74,7 @@
 
     <div class="form-group">
       <div class="label">Telefone</div>
-      <input type="text" name="phone" id="phone" class="form-input inputOff" disabled="" value="">
+      <input type="text" name="phone" id="phone" class="form-input inputOff" disabled="">
       <button class="btn-edit" id="btnEditTel">
         <img src="../../assets/img/icons/pageEditData/lapis-vetor.png" alt="lapis" class="img-lapis">
       </button>
@@ -74,7 +82,7 @@
 
     <div class="form-group">
       <div class="label">Email</div>
-      <input type="text" name="email" id="email" class="form-input inputOff" disabled="" value="">
+      <input type="text" name="email" id="email" class="form-input inputOff" disabled="">
       <button class="btn-edit" id="btnEditEmail">
         <img src="../../assets/img/icons/pageEditData/lapis-vetor.png" alt="lapis" class="img-lapis">
       </button>
@@ -83,9 +91,13 @@
 
   <div class="div-btns-footer">
     <img class="img-btn-footer" src="../../assets/img/icons/pageEditData/edit-vetor.png">
-    <button class="btn-group yellow">Confirmar Edição</button>
+    <button class="btn-group yellow" id="btnSendInEditPage">Confirmar Edição</button>
     <img class="img-btn-footer" src="../../assets/img/icons/pageEditData/lixeira-vetor.png">
     <button class="btn-group red">Excluir Cadastro</button>
+  </div>
+
+  <div>
+    <div id="errorInEditPage" class="error-message"></div>
   </div>
 
 </body>

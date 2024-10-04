@@ -17,6 +17,9 @@ export default async function activateInputOnClick() {
 }
 
 function inputActivate(inputEl) {
+  if (inputEl.value == 'Não Cadastrado') {
+    inputEl.value = '';
+  }
   inputEl.removeAttribute('disabled');
   inputEl.style.background = 'transparent';
   inputEl.focus();
@@ -26,8 +29,17 @@ function inputActivate(inputEl) {
 }
 
 function inputDisabled(inputEl) {
+  if (inputEl.value == '' && inputEl.value !== 'Não Cadastrado') {
+    inputEl.value = inputEl.value;
+  }
+
+  if (inputEl.value == '') {
+    inputEl.value = 'Não Cadastrado';
+  }
+
   inputEl.setAttribute('disabled', '');
   inputEl.style.background = '#e6e6e681';
+  inputEl.style.color = '##535353';
 
   inputEl.classList.remove('inputOn');
   inputEl.classList.add('inputOff');
