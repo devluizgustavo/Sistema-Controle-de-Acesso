@@ -1,9 +1,9 @@
 const { dialog } = require('electron');
-const editDataWinModel = require('../models/EditDataWinModel.js');
+const { GetDataModel, UpdateDataModel } = require('../models/EditDataWinModel.js');
 
-async function EditDataController(id) {
+async function GetDataByID(id) {
   try {
-    const dataModel = new editDataWinModel(id);
+    const dataModel = new GetDataModel(id);
 
     await dataModel.initData();
 
@@ -21,4 +21,24 @@ async function EditDataController(id) {
   }
 }
 
-module.exports = EditDataController
+async function ValidateAndUpdateRegister(dataUp) {
+  try {
+    const updateDtModel = new UpdateDataModel(dataUp);
+
+    await updateDtModel.initUpdated();
+
+    let string = 'Confira os campos abaixo:\n\n';
+    updateDtModel.errors.forEach(val => string += val);
+
+    if (updateDtModel.errors.length > 0) {
+      dialog.showErrorBox('Não foi possível atualizar os dados', `\n${string}`);
+      return false;
+    }
+
+    return true;
+  } catch (e) {
+    console.error('Erro na tentiva de atualizar os dados do cadastro:', e);
+  }
+}
+
+module.exports = { GetDataByID, ValidateAndUpdateRegister };

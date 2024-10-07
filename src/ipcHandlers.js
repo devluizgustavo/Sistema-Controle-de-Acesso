@@ -7,7 +7,7 @@ const { closeSession, openWinRegisterPerson, openWinAccessRelease, findRecordsBy
 // Controladores Gerais
 const UserLoginController = require('./controllers/UserLoginController.js');
 const LogHistoryController = require('./controllers/LogHistoryController.js');
-const EditDataWinController = require('./controllers/EditDataWinController.js');
+const { GetDataByID, ValidateAndUpdateRegister } = require('./controllers/EditDataWinController.js');
 const UserRegisterController = require('./controllers/UserRegisterController.js');
 const RealeaseAccessController = require('./controllers/RealeaseAccessController.js');
 const PersonRegistrationController = require('./controllers/PersonRegistrationController.js');
@@ -36,7 +36,6 @@ module.exports = function setupIPCHandlers() {
     try {
       const loginOn = await UserLoginController(args);
       if (!loginOn) return false;
-
       global.user = loginOn;
 
       await dialog.showMessageBox(windowManager.loginWindow, {
@@ -192,7 +191,7 @@ module.exports = function setupIPCHandlers() {
       message: 'Nenhum registro foi selecionado'
     });
 
-    const res = await EditDataWinController(id);
+    const res = await GetDataByID(id);
 
     windowManager.createEditDataWindow();
 
@@ -254,6 +253,24 @@ module.exports = function setupIPCHandlers() {
   // Responsável por enviar todos os logs do cadastro no sistema
   ipcMain.handle('send-all-logs', async () => {
     return logsByID;
+  })
+
+  // Responsável por tratar os dados, e atualizar conforme o ID selecionado
+  ipcMain.handle('updated-data-by-id', async (event, dataUp) => {
+    event.preventDefault();
+    if (!dataUp) return;
+
+    const setUpData = await ValidateAndUpdateRegister(dataUp)
+
+    if (setUpData) {
+      dialog.showMessageBox(windowManager.dataEditWindow, {
+        type: 'info',
+        title: 'Sucesso',
+        message: 'Os dados foram editados'
+      });
+
+      windowManager.homeWindow.webContents.send('updateTable');
+    }
   })
 
 }

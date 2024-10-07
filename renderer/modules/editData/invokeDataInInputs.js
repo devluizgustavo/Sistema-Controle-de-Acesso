@@ -1,4 +1,4 @@
-import showMaskCPF, { showMaskRG } from '../../utils/showMask.js';
+import showMaskCPF, { showMaskRG, showMaskTel } from '../../utils/showMask.js';
 
 export default async function invokeDataInInputs(cad) {
   document.querySelectorAll('input').forEach(input => {
@@ -19,7 +19,7 @@ export default async function invokeDataInInputs(cad) {
         !cad.cad_rg ? input.value = 'Não Cadastrado' : input.value = showMaskRG(cad.cad_rg);
         break;
       case 'phone':
-        !cad.cad_tel ? input.value = 'Não Cadastrado' : input.value = cad.cad_tel;
+        !cad.cad_tel ? input.value = 'Não Cadastrado' : input.value = showMaskTel(cad.cad_tel);
         break;
       case 'email':
         !cad.cad_email ? input.value = 'Não Cadastrado' : input.value = cad.cad_email;

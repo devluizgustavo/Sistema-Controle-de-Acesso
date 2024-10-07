@@ -1,5 +1,4 @@
 const { FindOne, Create } = require('../util/dbRepository.js')
-const { removeMask } = require('../util/treatData');
 
 class RealeaseAccessModel {
   constructor(deptoAndAssunto, idRecord) {
@@ -7,7 +6,7 @@ class RealeaseAccessModel {
     this.assunto = deptoAndAssunto.assunto;
     this.idDepto = Number(deptoAndAssunto.departamento);
     this.idAssunto = null;
-    this.idCtr = null;
+    this.idCtr = global.user.ctr_id;
     this.errors = [];
     this.accessIsTrue = null;
   }
@@ -16,7 +15,6 @@ class RealeaseAccessModel {
     try {
       this.validation();
       console.log(this.assunto);
-      await this.getCtrID();
       await this.getAssID();
 
       if (this.errors.length > 0) return;
@@ -32,22 +30,21 @@ class RealeaseAccessModel {
     if (!this.idRecord) this.errors.push('Registro não encontrado/ou não existe');
   }
 
-  async getCtrID() {
-    try {
-      const sql = `SELECT ctr_id FROM Cadastro WHERE cad_id = ?`;
-      const row = await FindOne(sql, [this.idRecord]);
-      this.idCtr = row.ctr_id;
-    } catch(e) {
-      console.error('Erro ao tentar encontrar o ID do Controlador');
-    }
-  }
+  // async getCtrID() {
+  //   try {
+  //     const sql = `SELECT ctr_id FROM Cadastro WHERE cad_id = ?`;
+  //     const row = await FindOne(sql, [this.idRecord]);
+  //   } catch (e) {
+  //     console.error('Erro ao tentar encontrar o ID do Controlador');
+  //   }
+  // }
 
   async getAssID() {
     try {
       const sql = `SELECT ass_id FROM Assuntos WHERE ass_desc = ? AND dep_id = ?`;
       const row = await FindOne(sql, [this.assunto, this.idDepto]);
       this.idAssunto = row.ass_id;
-    } catch(e) {
+    } catch (e) {
       console.error('Erro ao tentar encontrar o ID do Assunto');
     }
   }
@@ -59,7 +56,7 @@ class RealeaseAccessModel {
                    VALUES(?, ?, ?, ?)`;
       const row = await Create(sql, [this.idRecord, this.idDepto, this.idCtr, this.idAssunto]);
       this.accessIsTrue = row;
-    } catch(e) {
+    } catch (e) {
       console.error('Erro ao inserir os dados de acesso', e);
     }
   }

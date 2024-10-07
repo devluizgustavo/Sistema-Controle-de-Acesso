@@ -52,8 +52,23 @@ async function Create(sql, params = []) {
   }
 }
 
+async function Update(sql, params = []) {
+  try {
+    const db = await db_connection().then((res) => res);
+    const row = await new Promise((resolve, reject) => {
+      db.run(sql, params, (err) => {
+        if (err) reject(err);
+        return resolve(true);
+      })
+    })
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 module.exports = {
   FindAll,
   Create,
   FindOne,
+  Update,
 }
