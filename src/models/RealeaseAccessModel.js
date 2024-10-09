@@ -30,15 +30,6 @@ class RealeaseAccessModel {
     if (!this.idRecord) this.errors.push('Registro não encontrado/ou não existe');
   }
 
-  // async getCtrID() {
-  //   try {
-  //     const sql = `SELECT ctr_id FROM Cadastro WHERE cad_id = ?`;
-  //     const row = await FindOne(sql, [this.idRecord]);
-  //   } catch (e) {
-  //     console.error('Erro ao tentar encontrar o ID do Controlador');
-  //   }
-  // }
-
   async getAssID() {
     try {
       const sql = `SELECT ass_id FROM Assuntos WHERE ass_desc = ? AND dep_id = ?`;
@@ -48,7 +39,6 @@ class RealeaseAccessModel {
       console.error('Erro ao tentar encontrar o ID do Assunto');
     }
   }
-
 
   async createAccess() {
     try {
