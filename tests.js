@@ -1,2 +1,3 @@
-const date = new Date();
-console.log(date.getDate());
+for (let i = 0; i <= 10; i++) {
+    console.log(i);
+}
