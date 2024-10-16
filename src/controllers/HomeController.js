@@ -11,7 +11,7 @@ Funções da HOME FAZER
 Sair da sessão ( OK )
 Abrir a Janela de Cadastros de Pessoas ( OK )
 Abrir a Janela de Liberação de Pessoas ( OK )
-Abrir a Janela de Historico de Cadastros ( PENDENTE )
+Abrir a Janela de Historico de Cadastros ( OK )
 Trazer registros conforme a pesquisa do usuário no INPUT ( OK )
 Manipular a Tabela de Pessoas ( OK )
 }

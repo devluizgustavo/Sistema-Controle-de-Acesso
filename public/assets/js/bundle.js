@@ -24,7 +24,7 @@ function handlePromptSubmit(_x) {
   return _handlePromptSubmit.apply(this, arguments);
 }
 function _handlePromptSubmit() {
-  _handlePromptSubmit = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(event) {
+  _handlePromptSubmit = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(event) {
     var formPrompt, dataPrompt, isAuthValid;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
@@ -92,7 +92,7 @@ function activateInputOnClick() {
   return _activateInputOnClick.apply(this, arguments);
 }
 function _activateInputOnClick() {
-  _activateInputOnClick = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+  _activateInputOnClick = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
     var el;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
@@ -166,7 +166,7 @@ function dataInvokerInEditWin() {
   return _dataInvokerInEditWin.apply(this, arguments);
 }
 function _dataInvokerInEditWin() {
-  _dataInvokerInEditWin = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+  _dataInvokerInEditWin = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
     var dataByID;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
@@ -217,7 +217,7 @@ function invokeDataInInputs(_x) {
   return _invokeDataInInputs.apply(this, arguments);
 }
 function _invokeDataInInputs() {
-  _invokeDataInInputs = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(cad) {
+  _invokeDataInInputs = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(cad) {
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -276,7 +276,7 @@ function sendUpdatedDataInEditWin() {
   return _sendUpdatedDataInEditWin.apply(this, arguments);
 }
 function _sendUpdatedDataInEditWin() {
-  _sendUpdatedDataInEditWin = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+  _sendUpdatedDataInEditWin = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
     var input, btnSend, getID, objData, keys, values;
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
@@ -292,7 +292,7 @@ function _sendUpdatedDataInEditWin() {
           keys = ['name', 'lastname', 'dtnasc', 'cpf', 'rg', 'tel', 'email', 'id'];
           values = [];
           btnSend.addEventListener('click', /*#__PURE__*/function () {
-            var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
+            var _ref = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
               var i;
               return _regeneratorRuntime().wrap(function _callee$(_context) {
                 while (1) switch (_context.prev = _context.next) {
@@ -412,7 +412,7 @@ function dataInvokeInHistory() {
   return _dataInvokeInHistory.apply(this, arguments);
 }
 function _dataInvokeInHistory() {
-  _dataInvokeInHistory = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+  _dataInvokeInHistory = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
     var logs;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
@@ -466,7 +466,7 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
   return _ref.apply(this, arguments);
 }
 function _ref() {
-  _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(log) {
+  _ref = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(log) {
     var elCount;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
@@ -506,7 +506,7 @@ function invokeNameAndId(_x) {
   return _invokeNameAndId.apply(this, arguments);
 }
 function _invokeNameAndId() {
-  _invokeNameAndId = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(log) {
+  _invokeNameAndId = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(log) {
     var elID, elName;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
@@ -550,7 +550,7 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
   return _ref.apply(this, arguments);
 }
 function _ref() {
-  _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(log) {
+  _ref = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(log) {
     var tableBody;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
@@ -623,12 +623,12 @@ function funcInitInput() {
 
 //Criar uma função que compare na tabela se o valor do input existe, e se caso existir, traga os dados, caso não, mostre que não existe o dado
 function _funcInitInput() {
-  _funcInitInput = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+  _funcInitInput = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
           input.addEventListener('input', /*#__PURE__*/function () {
-            var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
+            var _ref = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
               var valueClean;
               return _regeneratorRuntime().wrap(function _callee$(_context) {
                 while (1) switch (_context.prev = _context.next) {
@@ -670,7 +670,7 @@ function findAllRegistersAndResponse(_x) {
   return _findAllRegistersAndResponse.apply(this, arguments);
 } //Filtar campo de input, para que não seja possível digitar caracteres especiais
 function _findAllRegistersAndResponse() {
-  _findAllRegistersAndResponse = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(valueInput) {
+  _findAllRegistersAndResponse = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3(valueInput) {
     var RecordsFound, tableBody;
     return _regeneratorRuntime().wrap(function _callee3$(_context3) {
       while (1) switch (_context3.prev = _context3.next) {
@@ -835,7 +835,7 @@ function getAccessByClickInBtn() {
   return _getAccessByClickInBtn.apply(this, arguments);
 }
 function _getAccessByClickInBtn() {
-  _getAccessByClickInBtn = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+  _getAccessByClickInBtn = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
     var table;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
@@ -907,7 +907,7 @@ function invokeAllAccessInTable() {
   return _invokeAllAccessInTable.apply(this, arguments);
 }
 function _invokeAllAccessInTable() {
-  _invokeAllAccessInTable = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+  _invokeAllAccessInTable = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
     var allAccess;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
@@ -1035,7 +1035,7 @@ var RegPeopleForm = /*#__PURE__*/function () {
   }, {
     key: "getDataAndValidate",
     value: function () {
-      var _getDataAndValidate = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      var _getDataAndValidate = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var _form$get, _form$get2, _form$get3, _form$get4, _form$get5, _form$get6, _form$get7, _form$get8, form, data, checked;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
@@ -1182,7 +1182,7 @@ function getAssuntosInDepto(_x) {
   return _getAssuntosInDepto.apply(this, arguments);
 }
 function _getAssuntosInDepto() {
-  _getAssuntosInDepto = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(idDepto) {
+  _getAssuntosInDepto = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(idDepto) {
     var idNumber, getAssunto;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
@@ -1236,7 +1236,7 @@ function handleAccessSubmit(_x) {
   return _handleAccessSubmit.apply(this, arguments);
 }
 function _handleAccessSubmit() {
-  _handleAccessSubmit = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
+  _handleAccessSubmit = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
     var formDataAccess, dataAccess, realeaseAccess;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
@@ -1306,12 +1306,12 @@ function invokeAssuntosInInput() {
   return _invokeAssuntosInInput.apply(this, arguments);
 }
 function _invokeAssuntosInInput() {
-  _invokeAssuntosInInput = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+  _invokeAssuntosInInput = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
           document.addEventListener('change', /*#__PURE__*/function () {
-            var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
+            var _ref = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
               var descAssuntos, _iterator, _step, i;
               return _regeneratorRuntime().wrap(function _callee$(_context) {
                 while (1) switch (_context.prev = _context.next) {
@@ -1392,7 +1392,7 @@ function handleLoginSubmit(_x) {
   return _handleLoginSubmit.apply(this, arguments);
 }
 function _handleLoginSubmit() {
-  _handleLoginSubmit = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(event) {
+  _handleLoginSubmit = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(event) {
     var userRegex, passwordRegex, formDataLogin, dataLogin, login;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
@@ -1466,7 +1466,7 @@ function handleRegisterSubmit(_x) {
   return _handleRegisterSubmit.apply(this, arguments);
 }
 function _handleRegisterSubmit() {
-  _handleRegisterSubmit = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(event) {
+  _handleRegisterSubmit = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(event) {
     var nameAndLastNameRegex, userRegex, passwordRegex, formRegister, dataUser, chave, res;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
@@ -1574,7 +1574,7 @@ function initClickListeners() {
   return _initClickListeners.apply(this, arguments);
 }
 function _initClickListeners() {
-  _initClickListeners = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+  _initClickListeners = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -1641,7 +1641,7 @@ function initFormListeners() {
   return _initFormListeners.apply(this, arguments);
 }
 function _initFormListeners() {
-  _initFormListeners = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+  _initFormListeners = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -1700,7 +1700,7 @@ function initInputListeners() {
   return _initInputListeners.apply(this, arguments);
 }
 function _initInputListeners() {
-  _initInputListeners = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+  _initInputListeners = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -1748,7 +1748,7 @@ function initInputMasks() {
   return _initInputMasks.apply(this, arguments);
 }
 function _initInputMasks() {
-  _initInputMasks = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+  _initInputMasks = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -1789,11 +1789,11 @@ function initTypeIdentificationChange() {
   return _initTypeIdentificationChange.apply(this, arguments);
 }
 function _initTypeIdentificationChange() {
-  _initTypeIdentificationChange = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+  _initTypeIdentificationChange = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
-          document.getElementById('id_type_identific').addEventListener('change', /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+          document.getElementById('id_type_identific').addEventListener('change', /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
             var cpfField, rgField, orgField;
             return _regeneratorRuntime().wrap(function _callee$(_context) {
               while (1) switch (_context.prev = _context.next) {
@@ -1918,7 +1918,7 @@ function showNameUser() {
   return _showNameUser.apply(this, arguments);
 }
 function _showNameUser() {
-  _showNameUser = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+  _showNameUser = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
     var res;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
@@ -9403,6 +9403,8 @@ module.exports["default"] = exports.default;
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+(() => {
 /*!******************************!*\
   !*** ./renderer/renderer.js ***!
   \******************************/
@@ -9446,7 +9448,7 @@ function init() {
   return _init.apply(this, arguments);
 } // Executa a função principal de inicialização
 function _init() {
-  _init = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+  _init = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
@@ -9456,7 +9458,7 @@ function _init() {
           });
         case 2:
           // Configura o listener para atualizações da tabela
-          window.electron.on('updateTable', /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+          window.electron.on('updateTable', /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
             return _regeneratorRuntime().wrap(function _callee$(_context) {
               while (1) switch (_context.prev = _context.next) {
                 case 0:
@@ -9481,6 +9483,8 @@ function _init() {
   return _init.apply(this, arguments);
 }
 init();
+})();
+
 /******/ })()
 ;
 //# sourceMappingURL=bundle.js.map
