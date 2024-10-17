@@ -276,21 +276,22 @@ function sendUpdatedDataInEditWin() {
   return _sendUpdatedDataInEditWin.apply(this, arguments);
 }
 function _sendUpdatedDataInEditWin() {
-  _sendUpdatedDataInEditWin = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-    var input, btnSend, getID, objData, keys, values;
-    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-      while (1) switch (_context2.prev = _context2.next) {
+  _sendUpdatedDataInEditWin = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+    var input, btnSend, btnDelete, getID, objData, keys, values;
+    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      while (1) switch (_context3.prev = _context3.next) {
         case 0:
-          _context2.prev = 0;
+          _context3.prev = 0;
           input = document.querySelector('#editPage').querySelectorAll('input');
           btnSend = document.querySelector('#btnSendInEditPage');
-          _context2.next = 5;
+          btnDelete = document.querySelector('#btnDeleteInEditPage');
+          _context3.next = 6;
           return window.electron.getOneData();
-        case 5:
-          getID = _context2.sent;
+        case 6:
+          getID = _context3.sent;
           objData = {};
           keys = ['name', 'lastname', 'dtnasc', 'cpf', 'rg', 'tel', 'email', 'id'];
-          values = [];
+          values = []; //Solicitação caso o botão clicado seja de edição dos dados
           btnSend.addEventListener('click', /*#__PURE__*/function () {
             var _ref = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
               var i;
@@ -309,15 +310,14 @@ function _sendUpdatedDataInEditWin() {
                       objData[keys[i]] = values[i];
                     }
                     if (!(0,_validateUpdatedData__WEBPACK_IMPORTED_MODULE_0__["default"])(objData)) {
-                      _context.next = 9;
+                      _context.next = 8;
                       break;
                     }
-                    console.log(objData);
-                    _context.next = 9;
+                    _context.next = 8;
                     return window.electron.updatedDataByEditWin(objData);
-                  case 9:
+                  case 8:
                     ;
-                  case 10:
+                  case 9:
                   case "end":
                     return _context.stop();
                 }
@@ -327,17 +327,43 @@ function _sendUpdatedDataInEditWin() {
               return _ref.apply(this, arguments);
             };
           }());
-          _context2.next = 15;
+
+          //Solicitação caso o botão clicado seja o de excluir os dados
+          btnDelete.addEventListener('click', /*#__PURE__*/function () {
+            var _ref2 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2(e) {
+              return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+                while (1) switch (_context2.prev = _context2.next) {
+                  case 0:
+                    e.preventDefault();
+                    if (getID) {
+                      _context2.next = 3;
+                      break;
+                    }
+                    return _context2.abrupt("return");
+                  case 3:
+                    _context2.next = 5;
+                    return window.electron.deletedDataByEditWin(getID);
+                  case 5:
+                  case "end":
+                    return _context2.stop();
+                }
+              }, _callee2);
+            }));
+            return function (_x2) {
+              return _ref2.apply(this, arguments);
+            };
+          }());
+          _context3.next = 17;
           break;
-        case 12:
-          _context2.prev = 12;
-          _context2.t0 = _context2["catch"](0);
-          console.error('Erro ao efetuar o envio dos novos dados para o back-end:', _context2.t0);
-        case 15:
+        case 14:
+          _context3.prev = 14;
+          _context3.t0 = _context3["catch"](0);
+          console.error('Erro ao efetuar o envio dos novos dados para o back-end:', _context3.t0);
+        case 17:
         case "end":
-          return _context2.stop();
+          return _context3.stop();
       }
-    }, _callee2, null, [[0, 12]]);
+    }, _callee3, null, [[0, 14]]);
   }));
   return _sendUpdatedDataInEditWin.apply(this, arguments);
 }

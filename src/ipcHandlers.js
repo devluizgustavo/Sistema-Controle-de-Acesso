@@ -7,7 +7,7 @@ const { closeSession, openWinRegisterPerson, openWinAccessRelease, findRecordsBy
 // Controladores Gerais
 const UserLoginController = require('./controllers/UserLoginController.js');
 const LogHistoryController = require('./controllers/LogHistoryController.js');
-const { GetDataByID, ValidateAndUpdateRegister } = require('./controllers/EditDataWinController.js');
+const { GetDataByID, ValidateAndUpdateRegister, ValidateAndDeleteCadastro } = require('./controllers/EditDataWinController.js');
 const UserRegisterController = require('./controllers/UserRegisterController.js');
 const RealeaseAccessController = require('./controllers/RealeaseAccessController.js');
 const PersonRegistrationController = require('./controllers/PersonRegistrationController.js');
@@ -193,8 +193,10 @@ module.exports = function setupIPCHandlers() {
 
     const res = await GetDataByID(id);
 
-    windowManager.createEditDataWindow();
+    if (!res) return;
 
+    windowManager.createEditDataWindow();
+    windowManager.homeWindow.webContents.reload();
     dataByID = res;
   });
 
@@ -253,7 +255,7 @@ module.exports = function setupIPCHandlers() {
   // Responsável por enviar todos os logs do cadastro no sistema
   ipcMain.handle('send-all-logs', async () => {
     return logsByID;
-  })
+  });
 
   // Responsável por tratar os dados, e atualizar conforme o ID selecionado
   ipcMain.handle('updated-data-by-id', async (event, dataUp) => {
@@ -271,6 +273,40 @@ module.exports = function setupIPCHandlers() {
 
       windowManager.homeWindow.webContents.send('updateTable');
     }
+  });
+
+  // Responsável por excluir um cadastro, conforme o ID selecionado
+  ipcMain.handle('deleted-data-by-id', async (event, id) => {
+    event.preventDefault();
+    if (!id) return
+
+    dialog.showMessageBox(windowManager.dataEditWindow, {
+      type: 'warning',
+      title: 'Atenção',
+      message: 'Você realmente deseja excluir esse cadastro?',
+      detail: 'Essa ação será irreversível\n\nTodos os ACESSOS vínculados a ele serão APAGADOS',
+      buttons: ['Cancelar', 'Excluir'],
+      defaultId: 1,
+    }).then(async (val) => {
+      if (val.response === 1) {
+        const checkDataAndDelete = await ValidateAndDeleteCadastro(id);  
+
+        if (!checkDataAndDelete) return;
+
+        dialog.showMessageBox(windowManager.dataEditWindow, {
+          type: 'info',
+          title: 'Sucesso',
+          message: 'O cadastro foi excluido do sistema'
+        }).then(val => {
+          if (val) {
+            windowManager.dataEditWindow.close(); 
+            windowManager.homeWindow.webContents.send('updateTable');
+          }
+        })
+      }
+    })
+
+
   })
 
 }

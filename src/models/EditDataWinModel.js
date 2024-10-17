@@ -1,4 +1,4 @@
-const { FindOne, Update } = require('../util/dbRepository');
+const { FindOne, Update, DeleteByID, FindAll } = require('../util/dbRepository');
 const Validator = require('validator');
 const { removeMask, captalizeText } = require('../util/treatData.js')
 const GetDateNow = require('../util/getDateNow.js');
@@ -21,7 +21,7 @@ class GetDataModel {
   async validate() {
     try {
       if (!this.id) this.errors.push('ID não enviado');
-      if (!await this.registerExists()) this.errors.push('Registro Não Encontrado');
+      if (!await this.registerExists()) this.errors.push('Cadastro Não Encontrado');
     } catch (e) {
       console.error('Erro ao tentar fazer a validação:', e);
     }
@@ -121,4 +121,46 @@ class UpdateDataModel {
   }
 }
 
-module.exports = { GetDataModel, UpdateDataModel };
+class DeleteDataModel extends GetDataModel {
+  constructor(id) {
+    super();
+    this.id = id;
+    this.errors = []
+    this.isDeleted = false;
+    this.idAccessLog = null;
+  }
+
+  async initDeleted() {
+    await this.validate();
+    if (this.errors.length > 0) return;
+
+    await this.existsLogs()
+    await this.deleteCadastroAndLogs();
+  }
+
+  async deleteCadastroAndLogs() {
+    try {
+      if (this.idAccessLog !== null) {
+        this.idAccessLog.forEach(async (val) => {
+          await DeleteByID('Acesso_Historico', 'acc_id', val.acc_id);
+        })
+      }
+
+      if (await DeleteByID('Cadastro', 'cad_id', this.id)) this.isDeleted = true;
+    } catch (e) {
+      console.error('Erro ao tentar deletar o cadastro na base de dados', e);
+    }
+  }
+
+  async existsLogs() {
+    try {
+      const sql = 'SELECT acc_id FROM Acesso_Historico WHERE cad_id = ?';
+      const rows = await FindAll(sql, [this.id]);
+      this.idAccessLog = rows
+    } catch (e) {
+      console.error('Erro ao verificar se existe acessos com esse cadastro', e);
+    }
+  }
+}
+
+module.exports = { GetDataModel, UpdateDataModel, DeleteDataModel };

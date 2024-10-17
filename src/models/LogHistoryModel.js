@@ -17,9 +17,9 @@ class LogHistoryModel {
   }
 
   async validate() {
-    if (!await this.idExists()) this.errors.push('Registro não localizado');
+    if (!await this.idExists()) this.errors.push('Registro não localizado\n');
     if (!await this.userExistsLogHistory()) 
-    this.errors.push('A pessoa selecionada não possui registros de acesso ao prédio');
+    this.errors.push('A pessoa selecionada não possui registros de acesso ao prédio\n');
   }
 
   async idExists() {

@@ -44,6 +44,7 @@ async function openWinRegisterPerson() {
     const isLogged = await checkedLoggedIn(); //Middleware
     if (isLogged) return;
     windowManager.createRegisterPeopleWindow();
+    windowManager.homeWindow.webContents.reload();
   } catch (e) {
     console.error('Erro ao criar a janela de cadastro', e);
   }
@@ -63,6 +64,7 @@ async function openWinAccessRelease(id) {
     }
 
     windowManager.createReleaseAccessWindow();
+    windowManager.homeWindow.webContents.reload();
     return true;
   } catch (e) {
     console.error('Erro ao tentar abrir a janela de acesso:', e);
@@ -75,6 +77,7 @@ async function openWinHistoryAccess(id) {
     if (isLogged) return;
     
     windowManager.createAccessHistoryLogWindow();
+    windowManager.homeWindow.webContents.reload();
   } catch (e) {
     console.error('Erro ao tentar abrir a janela de histórico de acesso:', e);
   }

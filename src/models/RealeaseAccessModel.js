@@ -14,11 +14,11 @@ class RealeaseAccessModel {
   async initAccess() {
     try {
       this.validation();
-      console.log(this.assunto);
       await this.getAssID();
+      
+      if (!this.cadExists()) this.errors.push('Cadastro não existe\n')
 
       if (this.errors.length > 0) return;
-
       await this.createAccess();
     } catch (e) {
       console.error('Erro ao iniciar a liberação do acesso', e);
@@ -37,6 +37,16 @@ class RealeaseAccessModel {
       this.idAssunto = row.ass_id;
     } catch (e) {
       console.error('Erro ao tentar encontrar o ID do Assunto');
+    }
+  }
+
+  async cadExists() {
+    try {
+      const sql = 'SELECT cad_id FROM Cadastro WHERE cad_id = ?';
+      const row = await FindOne(sql, [this.idRecord]);
+      return row;
+    } catch(e) {
+      console.error('Erro ao tentar verificar a existência do cadastro:', e);
     }
   }
 
