@@ -4,7 +4,7 @@ const setupIPCHandlers = require('./src/ipcHandlers.js');
 
 app.whenReady().then(() => {
   // Cria a janela de login
-  windowManager.createLoginWindow();
+  windowManager.createHomeWindow();
 
   // Configura os handlers IPC
   setupIPCHandlers();
@@ -18,7 +18,7 @@ app.whenReady().then(() => {
 
   app.on('activate', () => {
     if (windowManager.mainWindow === null) {
-      windowManager.createLoginWindow();
+      windowManager.createHomeWindow();
     }
   });
 });

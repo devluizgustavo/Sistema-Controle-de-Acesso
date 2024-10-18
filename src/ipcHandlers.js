@@ -13,7 +13,7 @@ const RealeaseAccessController = require('./controllers/RealeaseAccessController
 const PersonRegistrationController = require('./controllers/PersonRegistrationController.js');
 
 // Middlewares
-const { checkedAuthCode } = require('./middlewares/globalMiddleware.js');
+const { checkedAuthCode, checkedLoggedIn } = require('./middlewares/globalMiddleware.js');
 
 // Utilidades 
 const getAssuntos = require('./util/getAssuntos');
@@ -185,6 +185,7 @@ module.exports = function setupIPCHandlers() {
   // Responsável por abrir a janela de Edição de Dados do Cadastro
   ipcMain.on('open-win-edit-data', async (event, id) => {
     event.preventDefault()
+
     if (!id) return dialog.showMessageBox(windowManager.dataEditWindow, {
       type: 'warning',
       title: 'Atenção',
@@ -193,7 +194,7 @@ module.exports = function setupIPCHandlers() {
 
     const res = await GetDataByID(id);
 
-    if (!res) return;
+    if (!res || await checkedLoggedIn()) return;
 
     windowManager.createEditDataWindow();
     windowManager.homeWindow.webContents.reload();

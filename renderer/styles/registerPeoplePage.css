@@ -136,8 +136,9 @@ p {
   color: var(--error-color);
   font-size: 17px;
   font-weight: 400;
-  margin: 15px 0px;
+  margin: 15px 81px;
   text-align: center;
+  display: flex;
 }
 
 .error {
@@ -179,13 +180,6 @@ p {
   padding-right: 10px;
 }
 
-.error-text {
-  padding: 0px;
-  margin: 0 auto;
-  display: flex;
-}
-
-/* Adicione media queries para responsividade */
 @media (max-width: 768px) {
   .column {
     width: 100%;
