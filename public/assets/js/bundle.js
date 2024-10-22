@@ -791,6 +791,7 @@ __webpack_require__.r(__webpack_exports__);
 function createRowInTable(data) {
   var tableBody = document.querySelector('#access-table tbody');
   if (tableBody) tableBody.innerHTML = "";
+  console.log(data);
   data.forEach(function (val) {
     var row = document.createElement('tr');
     row.setAttribute('id', 'rowTable');
@@ -933,29 +934,52 @@ function invokeAllAccessInTable() {
   return _invokeAllAccessInTable.apply(this, arguments);
 }
 function _invokeAllAccessInTable() {
-  _invokeAllAccessInTable = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-    var allAccess;
-    return _regeneratorRuntime().wrap(function _callee$(_context) {
-      while (1) switch (_context.prev = _context.next) {
+  _invokeAllAccessInTable = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+    var filter, allAccess;
+    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      while (1) switch (_context2.prev = _context2.next) {
         case 0:
-          _context.prev = 0;
-          _context.next = 3;
-          return window.electron.getAllAccess();
-        case 3:
-          allAccess = _context.sent;
+          _context2.prev = 0;
+          filter = document.querySelector('#filter');
+          _context2.next = 4;
+          return window.electron.getAllAccess(filter.value);
+        case 4:
+          allAccess = _context2.sent;
           (0,_funcCreateRow_js__WEBPACK_IMPORTED_MODULE_0__["default"])(allAccess);
           (0,_initTableRowSelection_js__WEBPACK_IMPORTED_MODULE_1__["default"])();
-          _context.next = 11;
+          filter.addEventListener('input', /*#__PURE__*/function () {
+            var _ref = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
+              var allAccess;
+              return _regeneratorRuntime().wrap(function _callee$(_context) {
+                while (1) switch (_context.prev = _context.next) {
+                  case 0:
+                    _context.next = 2;
+                    return window.electron.getAllAccess(filter.value);
+                  case 2:
+                    allAccess = _context.sent;
+                    (0,_funcCreateRow_js__WEBPACK_IMPORTED_MODULE_0__["default"])(allAccess);
+                    (0,_initTableRowSelection_js__WEBPACK_IMPORTED_MODULE_1__["default"])();
+                  case 5:
+                  case "end":
+                    return _context.stop();
+                }
+              }, _callee);
+            }));
+            return function (_x) {
+              return _ref.apply(this, arguments);
+            };
+          }());
+          _context2.next = 13;
           break;
-        case 8:
-          _context.prev = 8;
-          _context.t0 = _context["catch"](0);
-          console.error('Erro ao tentar mostrar os dados na pagina principal', _context.t0);
-        case 11:
+        case 10:
+          _context2.prev = 10;
+          _context2.t0 = _context2["catch"](0);
+          console.error('Erro ao tentar mostrar os dados na pagina principal', _context2.t0);
+        case 13:
         case "end":
-          return _context.stop();
+          return _context2.stop();
       }
-    }, _callee, null, [[0, 8]]);
+    }, _callee2, null, [[0, 10]]);
   }));
   return _invokeAllAccessInTable.apply(this, arguments);
 }

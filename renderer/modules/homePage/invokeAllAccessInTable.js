@@ -5,9 +5,17 @@ import initTableRowSelection from './initTableRowSelection.js'
 
 async function invokeAllAccessInTable() {
   try {
-    const allAccess = await window.electron.getAllAccess();
-    createRowInTable(allAccess)
+    const filter = document.querySelector('#filter');
+
+    const allAccess = await window.electron.getAllAccess(filter.value);
+    createRowInTable(allAccess);
     initTableRowSelection();
+    
+    filter.addEventListener('input', async (e) => {
+      const allAccess = await window.electron.getAllAccess(filter.value);
+      createRowInTable(allAccess);
+      initTableRowSelection();
+    });
   } catch (e) {
     console.error('Erro ao tentar mostrar os dados na pagina principal', e);
   }

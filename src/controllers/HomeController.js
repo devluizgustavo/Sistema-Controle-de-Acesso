@@ -3,6 +3,12 @@ const { checkedLoggedIn } = require('../middlewares/globalMiddleware.js');
 const windowManager = require('../../windows.js');
 const HomeModel = require('../models/HomeModel');
 
+const getAccessInBuildingAccess = require('../util/getAccessInBuildingAccess.js');
+const getRecordsNotInBuildingAccess = require('../util/getRecordsNotInBuildingAccess.js');
+const getRecordsGrowingOrder = require('../util/getRecordsGrowingOrder.js');
+const getRecordsDescendingOrder = require('../util/getRecordsDescendingOrder.js');
+
+
 /*
 
 Funções da HOME FAZER
@@ -95,13 +101,32 @@ async function findRecordsByInput(args) {
   } catch (e) {
     console.error('Erro ao tentar encontrar os registros:', e);
   }
+}
 
+async function setAccessByFilter(filter){
+  try {
+    const getInAccess = await getAccessInBuildingAccess();
+    const getDontAccess = await getRecordsNotInBuildingAccess();
+    const getAll = getInAccess.concat(getDontAccess);
+    const getGrowingOrder = await getRecordsGrowingOrder();
+    const getDescendingOrder = await getRecordsDescendingOrder();
+    
+    if (filter == 'allDate') return getAll;
+    if (filter == 'notAccess') return getDontAccess;
+    if (filter == 'recentDate') return getInAccess;
+    if (filter == 'growing') return getGrowingOrder;
+    if (filter == 'descending') return getDescendingOrder;
+
+  } catch(e) {
+    console.error('Erro ao tentar efetuar a filtragem:', e);
+  }
 }
 
 module.exports = {
+  setAccessByFilter,
   closeSession,
   openWinRegisterPerson,
   openWinAccessRelease,
   findRecordsByInput,
-  openWinHistoryAccess
+  openWinHistoryAccess,
 }

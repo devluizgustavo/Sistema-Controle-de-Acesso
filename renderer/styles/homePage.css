@@ -60,7 +60,7 @@ body {
 }
 
 .container {
-  margin: 25px 150px;
+  margin: 50px 150px;
 }
 
 .welcome {
@@ -224,7 +224,7 @@ body {
   overflow-y: auto;
   border: 1px solid #dddddd;
   border-radius: 1em;
-  margin: -35px 0px -50px;
+  margin: 15px 0px -50px;
 }
 
 #access-table {
@@ -346,4 +346,49 @@ body {
   font-size: 22px;
   text-align: center;
   display: flex;
+}
+
+.div-filter {
+  display: flex;
+  margin-top: -30px;
+}
+
+.img-filter {
+  height: 35px;
+  filter: grayscale(100%);
+}
+
+#filter {
+  margin-left: 10px;
+  border-radius: 1em;
+  width: 150px;
+  text-align: center;
+  outline: none;
+  border: solid rgb(131, 131, 131) 2px;
+  cursor: pointer;
+  font-weight: 700;
+  color: #818181;
+}
+
+.filter-personality {
+  margin: 8px 20px;
+  display: flex;
+  cursor: pointer;
+  font-weight: 700;
+  color: #818181;
+  opacity: 50%;
+}
+
+.filter-personality:hover {
+  color: rgb(95, 95, 95);
+  transition: all 1s;
+}
+
+.filter-personality:active {
+  color: black;
+  transition: all 1ms;
+}
+
+select {
+  font-size: 15px;
 }

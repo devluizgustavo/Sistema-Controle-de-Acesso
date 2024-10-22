@@ -11,7 +11,7 @@ contextBridge.exposeInMainWorld('electron', {
   getAllRegisters: () => ipcRenderer.invoke('get-registers-peoples'),
   getAssuntoDepto: (arg) => ipcRenderer.invoke('get-assunto-depto', arg),
   setAccessHistorico: (arg) => ipcRenderer.invoke('set-historico-access', arg),
-  getAllAccess: () => ipcRenderer.invoke('get-all-access'),
+  getAllAccess: (arg) => ipcRenderer.invoke('get-all-access', arg),
   getAllLogsByID: () => ipcRenderer.invoke('send-all-logs'),
   findRecordsBySearchInput: (arg) => ipcRenderer.invoke('find-records-by-search', arg),
   getOneData: () => ipcRenderer.invoke('get-data-by-id'),
