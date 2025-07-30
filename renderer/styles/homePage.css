@@ -13,6 +13,7 @@ body {
 }
 
 #main {
+  margin-top: 15px;
   transition: margin-left .5s;
   padding: 16px;
 }
@@ -60,7 +61,7 @@ body {
 }
 
 .container {
-  margin: 50px 150px;
+  margin: 25px 150px;
 }
 
 .welcome {
@@ -183,7 +184,7 @@ body {
 .btnCadastro {
   padding: 32px;
   height: 4.2em;
-  margin: 17px;
+  margin: 0px 0px 20px 20px;
   width: 380px;
   font-weight: 700;
   font-size: 20px;
@@ -200,7 +201,7 @@ body {
   position: fixed;
   height: 65px;
   width: 65px;
-  margin: 28px 35px;
+  margin: 10px 35px;
   opacity: 50%;
 }
 
@@ -220,11 +221,11 @@ body {
 }
 
 .table-container {
-  max-height: 440px;
+  max-height: 390px;
   overflow-y: auto;
   border: 1px solid #dddddd;
   border-radius: 1em;
-  margin: 15px 0px -50px;
+  margin: 20px 0px -25px;
 }
 
 #access-table {
@@ -266,12 +267,12 @@ body {
 }
 
 .div-btns-footer {
-  margin: -20px 0px 0px 0px;
+  margin: 0px;
   float: right;
 }
 
 .btn-group {
-  margin: 45px 15px;
+  margin: 0px 15px;
   padding: 25px;
   width: 290px;
   font-size: 18px;
@@ -284,11 +285,11 @@ body {
   opacity: 85%;
 }
 
-.img-cadeado {
+.img-group {
   position: fixed;
   height: 65px;
   width: 65px;
-  margin: 48px 25px;
+  margin: 5px 25px;
 }
 
 .white:hover {
@@ -314,10 +315,7 @@ body {
 }
 
 .img-edit {
-  position: fixed;
   height: 60px;
-  width: 60px;
-  margin: 48px 25px;
 }
 
 
@@ -339,7 +337,7 @@ body {
 }
 
 #text-error-table {
-  margin: 50px auto -15px 0px;
+  margin: 30px auto 10px 0px;
   padding: 20px;
   color: #818181;
   justify-content: center;

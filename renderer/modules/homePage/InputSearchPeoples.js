@@ -14,11 +14,12 @@ export default async function funcInitInput() {
     isNumberOrString();
 
     const valueClean = input.value.replace(/[-.]/g, '');
+    console.log(valueClean)
     await findAllRegistersAndResponse(valueClean);
   })
 }
 
-//Criar uma função que compare na tabela se o valor do input existe, e se caso existir, traga os dados, caso não, mostre que não existe o dado
+// Criar uma função que compare na tabela se o valor do input existe, e se caso existir, traga os dados, caso não, mostre que não existe o dado
 async function findAllRegistersAndResponse(valueInput) {
   try {
     const RecordsFound = await window.electron.findRecordsBySearchInput(valueInput);
@@ -31,18 +32,18 @@ async function findAllRegistersAndResponse(valueInput) {
 
     funcCreateRow(RecordsFound);
   } catch (e) {
-    console.error('Erro ao tentar a comunicação com o back-end:', e);
+    console.error('Erro ao tentar a comunicação com o servidor: ', e);
   }
 }
 
-//Filtar campo de input, para que não seja possível digitar caracteres especiais
+// Filtar campo de input, para que não seja possível digitar caracteres especiais
 function cleanCampIfCaracterEsp() {
   const regexCaracterEsp = /[^\w\s]/g
   const newValue = input.value.split('').filter(char => !regexCaracterEsp.test(char)).join('');
   input.value = newValue;
 }
 
-//Checar campo input, para saber se a busca será por nome, rg ou cpf
+// Checar campo input, para saber se a busca será por nome, rg ou cpf
 function isNumberOrString() {
   if (validator.isAlpha(input.value[0])) {
     const regexOnlyString = /[^a-zA-Z\s]/g;
@@ -53,22 +54,24 @@ function isNumberOrString() {
     const regexOnlyNumbers = /[^0-9]/g;
     const newValueIfNumber = input.value.split('').filter(char => !regexOnlyNumbers.test(char)).join('');
 
-    input.value = newValueIfNumber;
+    const valueWithMask = checkLengthAndApplyMask(newValueIfNumber);
 
-    checkLengthAndApplyMask(input.value);
+    input.value = valueWithMask;
   }
 }
 
-//Checar o tamanho do que foi digitado e aplicar mascara 57.090.985
-function checkLengthAndApplyMask() {
-  if (input.value.length >= 8 && input.value.length <= 10) {
-    input.value = showMaskRG(input.value);
-  } else if (input.value.length === 11) {
-    input.value = showMaskCPF(input.value);
+// Checar o tamanho do que foi digitado e aplicar mascaras
+function checkLengthAndApplyMask(value) {  
+  if (value.length >= 6 && value.length <= 10) {
+    return showMaskRG(value);
+  } else if (value.length === 11) {
+    return showMaskCPF(value);
+  } else {
+    return value;
   }
 }
 
-//Mostrar mensagem de não encontrado
+// Mostrar mensagem de não encontrado
 function showMessageError() {
   const divError = document.querySelector('#text-error-table');
   divError.innerHTML = 'Nenhum Cadastro foi Encontrado';

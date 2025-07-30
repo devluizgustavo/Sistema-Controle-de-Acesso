@@ -1,9 +1,13 @@
 const { ipcMain, dialog, app } = require('electron');
 
 // Controladores da HOME
-const { closeSession, openWinRegisterPerson, openWinAccessRelease, findRecordsByInput, openWinHistoryAccess,
-  setAccessByFilter
- } = require('./controllers/HomeController.js');
+const { 
+  closeSession, 
+  openWinRegisterPerson, 
+  openWinAccessRelease, 
+  findRecordsByInput, 
+  openWinHistoryAccess,
+  setAccessByFilter } = require('./controllers/HomeController.js');
 
 // Controladores Gerais
 const UserLoginController = require('./controllers/UserLoginController.js');
@@ -21,7 +25,7 @@ const getAssuntos = require('./util/getAssuntos');
 
 global.user = null;
 global.admin = null;
-// global.allAccessInSystem = null;
+global.allAccessInSystem = null;
 global.allLogsByID = null;
 
 let idAccessClick = null;
@@ -235,7 +239,7 @@ module.exports = function setupIPCHandlers() {
 
   // Responsável por trazer todos os ultimos acessos 
   ipcMain.handle('get-all-access', async (event, filter) => {
-    const getAccessByFilter = await setAccessByFilter(filter)
+    const getAccessByFilter = await setAccessByFilter(filter);
     return getAccessByFilter
   });
 

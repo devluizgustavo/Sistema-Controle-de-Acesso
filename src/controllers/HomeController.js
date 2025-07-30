@@ -89,7 +89,7 @@ async function openWinHistoryAccess(id) {
   }
 
 }
-
+// Função Responsável por mostrar os dados conforme o que foi digitado no input
 async function findRecordsByInput(args) {
   try {
     const findRecords = new HomeModel(args);
@@ -102,14 +102,16 @@ async function findRecordsByInput(args) {
     console.error('Erro ao tentar encontrar os registros:', e);
   }
 }
-
+// Função Responsável Por Filtrar os Registros
 async function setAccessByFilter(filter){
   try {
     const getInAccess = await getAccessInBuildingAccess();
     const getDontAccess = await getRecordsNotInBuildingAccess();
-    const getAll = getInAccess.concat(getDontAccess);
-    const getGrowingOrder = await getRecordsGrowingOrder();
-    const getDescendingOrder = await getRecordsDescendingOrder();
+
+    const getAll = getInAccess.concat(getDontAccess); // Todos os Acessos 
+    global.allAccessInSystem = getAll;
+    const getGrowingOrder = await getRecordsGrowingOrder(); // Todos os acessos em ordem crescente
+    const getDescendingOrder = await getRecordsDescendingOrder(); // Todos os acessos em ordem decrescente
     
     if (filter == 'allDate') return getAll;
     if (filter == 'notAccess') return getDontAccess;

@@ -6,8 +6,6 @@ export default function createRowInTable(data) {
   const tableBody = document.querySelector('#access-table tbody');
 
   if (tableBody) tableBody.innerHTML = ""
-
-  console.log(data)
   
   data.forEach(val => {
     const row = document.createElement('tr');

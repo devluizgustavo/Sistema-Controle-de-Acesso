@@ -17,7 +17,7 @@ async function invokeAllAccessInTable() {
       initTableRowSelection();
     });
   } catch (e) {
-    console.error('Erro ao tentar mostrar os dados na pagina principal', e);
+    console.error('Erro ao tentar mostrar os dados na pagina principal: ', e);
   }
 }
 

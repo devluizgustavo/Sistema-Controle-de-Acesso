@@ -584,7 +584,6 @@ function _ref() {
           try {
             tableBody = document.querySelector('#access-table-history tbody');
             if (tableBody) tableBody.innerHTML = "";
-            console.log(log);
             log.forEach(function (val) {
               var row = document.createElement('tr');
               row.setAttribute('ident', 'rowTableAccess');
@@ -647,7 +646,7 @@ function funcInitInput() {
   return _funcInitInput.apply(this, arguments);
 }
 
-//Criar uma função que compare na tabela se o valor do input existe, e se caso existir, traga os dados, caso não, mostre que não existe o dado
+// Criar uma função que compare na tabela se o valor do input existe, e se caso existir, traga os dados, caso não, mostre que não existe o dado
 function _funcInitInput() {
   _funcInitInput = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
@@ -672,9 +671,10 @@ function _funcInitInput() {
                     cleanCampIfCaracterEsp();
                     isNumberOrString();
                     valueClean = input.value.replace(/[-.]/g, '');
-                    _context.next = 10;
+                    console.log(valueClean);
+                    _context.next = 11;
                     return findAllRegistersAndResponse(valueClean);
-                  case 10:
+                  case 11:
                   case "end":
                     return _context.stop();
                 }
@@ -694,7 +694,7 @@ function _funcInitInput() {
 }
 function findAllRegistersAndResponse(_x) {
   return _findAllRegistersAndResponse.apply(this, arguments);
-} //Filtar campo de input, para que não seja possível digitar caracteres especiais
+} // Filtar campo de input, para que não seja possível digitar caracteres especiais
 function _findAllRegistersAndResponse() {
   _findAllRegistersAndResponse = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3(valueInput) {
     var RecordsFound, tableBody;
@@ -720,7 +720,7 @@ function _findAllRegistersAndResponse() {
         case 11:
           _context3.prev = 11;
           _context3.t0 = _context3["catch"](0);
-          console.error('Erro ao tentar a comunicação com o back-end:', _context3.t0);
+          console.error('Erro ao tentar a comunicação com o servidor: ', _context3.t0);
         case 14:
         case "end":
           return _context3.stop();
@@ -737,7 +737,7 @@ function cleanCampIfCaracterEsp() {
   input.value = newValue;
 }
 
-//Checar campo input, para saber se a busca será por nome, rg ou cpf
+// Checar campo input, para saber se a busca será por nome, rg ou cpf
 function isNumberOrString() {
   if (validator__WEBPACK_IMPORTED_MODULE_3___default().isAlpha(input.value[0])) {
     var regexOnlyString = /[^a-zA-Z\s]/g;
@@ -750,21 +750,23 @@ function isNumberOrString() {
     var newValueIfNumber = input.value.split('').filter(function (_char3) {
       return !regexOnlyNumbers.test(_char3);
     }).join('');
-    input.value = newValueIfNumber;
-    checkLengthAndApplyMask(input.value);
+    var valueWithMask = checkLengthAndApplyMask(newValueIfNumber);
+    input.value = valueWithMask;
   }
 }
 
-//Checar o tamanho do que foi digitado e aplicar mascara 57.090.985
-function checkLengthAndApplyMask() {
-  if (input.value.length >= 8 && input.value.length <= 10) {
-    input.value = (0,_utils_showMask__WEBPACK_IMPORTED_MODULE_0__.showMaskRG)(input.value);
-  } else if (input.value.length === 11) {
-    input.value = (0,_utils_showMask__WEBPACK_IMPORTED_MODULE_0__["default"])(input.value);
+// Checar o tamanho do que foi digitado e aplicar mascaras
+function checkLengthAndApplyMask(value) {
+  if (value.length >= 6 && value.length <= 10) {
+    return (0,_utils_showMask__WEBPACK_IMPORTED_MODULE_0__.showMaskRG)(value);
+  } else if (value.length === 11) {
+    return (0,_utils_showMask__WEBPACK_IMPORTED_MODULE_0__["default"])(value);
+  } else {
+    return value;
   }
 }
 
-//Mostrar mensagem de não encontrado
+// Mostrar mensagem de não encontrado
 function showMessageError() {
   var divError = document.querySelector('#text-error-table');
   divError.innerHTML = 'Nenhum Cadastro foi Encontrado';
@@ -791,7 +793,6 @@ __webpack_require__.r(__webpack_exports__);
 function createRowInTable(data) {
   var tableBody = document.querySelector('#access-table tbody');
   if (tableBody) tableBody.innerHTML = "";
-  console.log(data);
   data.forEach(function (val) {
     var row = document.createElement('tr');
     row.setAttribute('id', 'rowTable');
@@ -974,7 +975,7 @@ function _invokeAllAccessInTable() {
         case 10:
           _context2.prev = 10;
           _context2.t0 = _context2["catch"](0);
-          console.error('Erro ao tentar mostrar os dados na pagina principal', _context2.t0);
+          console.error('Erro ao tentar mostrar os dados na pagina principal: ', _context2.t0);
         case 13:
         case "end":
           return _context2.stop();
@@ -1936,8 +1937,11 @@ function showMaskTel(tel) {
 function showMaskRG(rg) {
   // Remove caracteres que não são letras ou números
   rg = rg.replace(/[^0-9A-Z]/gi, '');
-
+  console.log(rg);
   // Aplica a máscara no formato XX-XXX-XXX-XX
+  if (rg.length <= 7) {
+    return rg.replace(/(\w{2})(\w)/, '$1.$2').replace(/(\w{2})(\w)/, '$1.$2').replace(/(\w{2})(\w)/, '$1.$2');
+  }
   return rg.replace(/(\w{2})(\w)/, '$1.$2') // Adiciona o primeiro hífen
   .replace(/(\w{3})(\w)/, '$1.$2') // Adiciona o segundo hífen
   .replace(/(\w{3})(\w)/, '$1-$2') // Adiciona o terceiro hífen

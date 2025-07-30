@@ -132,7 +132,7 @@ class WindowManager {
       parent: this.homeWindow,
       show: false,
       center: true,
-      resizable: false,
+      resizable: false
     });
 
     // this.releaseAccessWindow.webContents.openDevTools(true);
@@ -150,6 +150,8 @@ class WindowManager {
       show: false,
       center: true,
       resizable: false,
+      frame: false,
+      transparent: true,
     });
 
     // this.accessHistoryLogWindow.webContents.openDevTools(true);

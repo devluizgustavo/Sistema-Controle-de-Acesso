@@ -39,7 +39,7 @@ class HomeModel {
 
   async findByRgOrCPF() {
     try {
-      const valueLike = `%${this.valueInput}%`;
+      const valueLike = `${this.valueInput}%`;
       const sql = `SELECT cad_id FROM Cadastro WHERE cad_cpf LIKE ? OR cad_rg LIKE ?`;
       const row = await FindAll(sql, [valueLike, valueLike]);
       this.recordsIDFound = row.map(record => record.cad_id);

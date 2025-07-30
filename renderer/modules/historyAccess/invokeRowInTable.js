@@ -4,7 +4,6 @@ export default async function (log) {
 
     if (tableBody) tableBody.innerHTML = "";
 
-    console.log(log)
     log.forEach(val => {
       const row = document.createElement('tr');
       row.setAttribute('ident', 'rowTableAccess');

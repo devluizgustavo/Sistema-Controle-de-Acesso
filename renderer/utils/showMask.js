@@ -22,7 +22,15 @@ export function showMaskRG(rg) {
   // Remove caracteres que não são letras ou números
   rg = rg.replace(/[^0-9A-Z]/gi, '');
 
+  console.log(rg)
   // Aplica a máscara no formato XX-XXX-XXX-XX
+  if (rg.length <= 7) {
+    return rg
+      .replace(/(\w{2})(\w)/, '$1.$2')
+      .replace(/(\w{2})(\w)/, '$1.$2')
+      .replace(/(\w{2})(\w)/, '$1.$2')
+  }
+
   return rg
     .replace(/(\w{2})(\w)/, '$1.$2') // Adiciona o primeiro hífen
     .replace(/(\w{3})(\w)/, '$1.$2') // Adiciona o segundo hífen
